@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Details</title>
+    <link rel="stylesheet" type="text/css" href="/css/house/tenants-view.css">
+</head>
+
+<body>
+<div class="container">
+    <h1>House Details</h1>
+    <div class="house-details">
+        <h2>House Information</h2>
+        <div class="profile-img">
+            <img th:src="@{/images/house/{image}(image=${house.photo})}" alt="House Image">
+        </div>
+        <p>House Number: <span th:text="${house.door_no}"></span></p>
+        <p>Occupied: <span th:text="${house.houseStatus == T(com.guava.E_HOSTELS.hostel.house.HouseStatus).OCCUPIED ? 'Yes' : 'No'}"></span></p>
+        <p>House Status: <span th:text="${house.houseStatus}"></span></p>
+        <p>Rental Start Date: <span th:text="${house.rentalStartDate}"></span></p>
+        <p>Rental End Date: <span th:text="${house.rentalEndDate}"></span></p>
+    </div>
+    <div class="actions">
+        <h2>Actions</h2>
+        <div th:if="${house.houseStatus == T(com.guava.E_HOSTELS.hostel.house.HouseStatus).VACANT}">
+            <input type="hidden" id="houseId" th:value="${house.houseId}">
+            <button type="button" onclick="openModal()">Rent House</button>
+        </div>
+        <div th:if="${house.houseStatus == T(com.guava.E_HOSTELS.hostel.house.HouseStatus).OCCUPIED}">
+            <input type="hidden" id="houseId2" th:value="${house.houseId}">
+            <input type="checkbox" onclick="updateBookings(event)"> Book House
+        </div>
+
+        <div th:if="${house.houseStatus == T(com.guava.E_HOSTELS.hostel.house.HouseStatus).UNAVAILABLE}">
+            <p>This house is currently unavailable.</p>
+        </div>
+    </div>
+</div>
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="terms">
+            <h2>Terms and Conditions</h2>
+            <p>Terms and Conditions ("Terms")...JABAA!!!!</p>
+            <h3>Najua huJasoma hizi conditions so </h3>
+            <h1>keja ni 5k</h1>
+        </div>
+        <form id="paymentForm" onsubmit="submitForm(event)">
+            <label for="idNumber">ID Number:</label>
+            <input type="number" id="idNumber" required><br>
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phoneNumber" required><br>
+            <label>
+                <input type="checkbox" id="termsCheckbox"> I have read and agree to the terms and conditions
+            </label>
+            <button type="submit">PAY NOW</button>
+        </form>
+    </div>
+</div>
+<div id="loadingAnimation" class="loading">
+    <div class="spinner"></div>
+</div>
+<script src="/js/house/tenants-view.js"></script>
+</body>
+
+</html>

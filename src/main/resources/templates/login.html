@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guava Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #23242a;
+        }
+
+        .banner {
+            position: relative;
+            width: 380px;
+            height: auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .banner .wrapper {
+            position: relative;
+            background: #1d1f23;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #fff;
+        }
+
+        .banner .wrapper h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .bg-rose-100 {
+            background-color: #ffe4e6;
+            color: #e11d48;
+        }
+
+        .banner .wrapper .input-box {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .banner .wrapper .input-box input {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            outline: none;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .banner .wrapper .input-box input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        .banner .wrapper .input-box i {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            color: #fff;
+        }
+
+        .banner .wrapper .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        .banner .wrapper .remember-forgot label {
+            display: flex;
+            align-items: center;
+        }
+
+        .banner .wrapper .remember-forgot a {
+            color: #009579;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .banner .wrapper .remember-forgot a:hover {
+            color: #007f65;
+        }
+
+        .banner .wrapper .btn {
+            width: 100%;
+            padding: 10px;
+            background: #009579;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .banner .wrapper .btn:hover {
+            background: #007f65;
+        }
+
+        .banner .wrapper .register-link {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .banner .wrapper .register-link a {
+            color: #009579;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .banner .wrapper .register-link a:hover {
+            color: #007f65;
+        }
+
+        .banner .wrapper .icon {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .banner .wrapper .icon a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 24px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .banner .wrapper .icon a:hover {
+            color: #009579;
+        }
+    </style>
+</head>
+<body>
+<section>
+    <div class="banner">
+        <div class="wrapper">
+            <form id="loginForm" th:action="@{/login}" method="post">
+                <h1>GUAVA LOGIN</h1>
+                <div th:if="${param.error}" class="bg-rose-100 justify-center p-4 ring-1 ring-rose-200 rounded-md">
+                    <p>Username and Password Mismatch</p>
+                </div>
+                <div class="input-box">
+                    <input type="text" id="username" name="username" placeholder="username eg.oscar" required>
+                    <i class="bx bxs-user"></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="password" name="password" placeholder="password eg. 14543" required>
+                    <i class="bx bxs-lock-alt"></i>
+                </div>
+                <div class="remember-forgot">
+                    <label><input type="checkbox"> Remember me </label>
+                    <a href="#">forgot password?</a>
+                </div>
+                <button type="submit" class="btn">login</button>
+                <div class="register-link">
+                    <p>Don't have an account? <a th:href="@{/register/tenant}">Register</a></p>
+                </div>
+                <div class="icon">
+                    <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-whatsapp"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-discord"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-google"></ion-icon></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

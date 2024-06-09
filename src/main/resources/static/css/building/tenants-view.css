@@ -1,0 +1,105 @@
+/* Header Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('/static/mi.jpg');
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    position: relative; /* Make the body a relative positioning context */
+}
+
+.social-media-header {
+  background-color:  rgba(255, 255, 255, 0.3);
+  color: #007bfff;
+  padding: 10px 0;
+}
+
+.social-media-header nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.social-media-header nav ul li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.social-media-header nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Profile Section Styles */
+.social-media-profile {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.social-media-profile h1 {
+  margin-top: 0;
+  font-size: 24px;
+}
+
+.profile-details p {
+  margin: 5px 0;
+}
+
+/* Profile Image Styles */
+.profile-image img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* Make the image circular */
+  margin-top: 10px;
+}
+
+
+/* Houses Section Styles */
+.social-media-posts {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.social-media-posts h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.house-cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.house-card {
+  width: calc(33.33% - 20px); /* Adjust the width as needed */
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+}
+
+.house-details {
+  padding: 15px;
+}
+
+.house-details p {
+  margin: 5px 0;
+}
+
+.house-details button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.house-details button:hover {
+  background-color: #0056b3;
+}

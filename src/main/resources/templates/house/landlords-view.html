@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Details</title>
+    <link rel="stylesheet" type="text/css" href="/css/house/landlords-view.css">
+
+<body>
+
+    <div class="container">
+        <h1>House Details</h1>
+
+        <!-- House details section -->
+        <div class="house-details">
+            <h2>House Information</h2>
+            <div class="profile-img">
+                <img th:src="@{/images/house/{image}(image=${house.photo})}" alt="House Image">
+            </div>
+            <p>House Number: <span th:text="${house.door_no}"></span></p>
+            <p>Occupied: <span th:text="${house.houseStatus == T(com.guava.E_HOSTELS.hostel.house.HouseStatus).OCCUPIED ? 'Yes' : 'No'}"></span></p>
+            <p>House Status: <span th:text="${house.houseStatus}"></span></p>
+            <p>Rental Start Date: <span th:text="${house.rentalStartDate}"></span></p>
+            <p>Rental End Date: <span th:text="${house.rentalEndDate}"></span></p>
+        </div>
+
+    </div>
+
+
+
+    <script src="/js/house/landlords-view.js"></script>
+    </body>
+</html>
+

@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tenant Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="/css/tenant/tenant.css">
+</head>
+<body>
+<header>
+    <div class="header-container">
+        <div class="header-left">
+            <button class="collapse-button" onclick="toggleSidebar()">
+                <span id="collapse-icon">&#9776;</span>
+            </button>
+            <span th:text="${tenant.userName}"></span>
+        </div>
+        <div class="header-right">
+                <span>GUAVA e-Hostels</span>
+            </div>
+    </div>
+</header>
+
+<div class="main-container">
+    <aside class="sidebar">
+        <ul class="nav-list">
+            <li><a href="#" onclick="showSection('dashboard')">Dashboard</a></li>
+            <li><a href="#" onclick="showSection('profile')">Profile</a></li>
+            <li><a href="#" onclick="showSection('account')">Account</a></li>
+            <li><a href="#" onclick="showSection('notifications')">Notifications</a></li>
+            <li><a href="#" onclick="showSection('logout')">Logout</a></li>
+        </ul>
+    </aside>
+
+    <div class="content-container">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="content-section active">
+            <!-- My Homes section -->
+            <div class="section">
+                <h2>My Homes</h2>
+                <div class="card-container-horizontal">
+                    <div th:each="home : ${myHomes}" class="card" th:onclick="'redirectToHouse(' + ${home.houseId} + ')'">
+                        <div class="profile-img">
+                            <img th:src="@{/images/house/{image}(image=${home.photo})}" alt="House Image">
+                        </div>
+                        <span th:text="'Your House number ' + ${home.door_no} + ' is in ' + ${home.building.area}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Section -->
+            <div class="search-section">
+                <h1>SEARCH FOR ANY BUILDING BELOW</h1>
+                <div class="searchbar">
+                    <form th:action="@{/tenant/{tenantId}/home(tenantId=${tenantId})}" method="get">
+                        <input type="text" name="keyword" placeholder="Search">
+                        <button type="submit">
+                            <img src="/images/search-icon.png" class="icn srchicn" alt="search-icon">
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Main Content Section -->
+            <div>
+                <div class="report-body">
+                    <div th:each="building : ${buildings}" class="building-card"  >
+                        <div class="building-image">
+                            <img th:src="@{/images/building/{image}(image=${building.photo})}" alt="House Image">
+                        </div>
+                        <div class="building-details">
+                            <p>Building Name: <span th:text="${building.buildingName}"></span></p>
+                            <p>Demanded by  <span th:text="${building.totalDemand}"></span> students</p>
+                            <p>Area: <span th:text="${building.area}"></span></p>
+                            <p>Vacant Houses: <span th:text="${building.countVacantHouses()}"></span></p>
+                        </div>
+                        <div class="open-link">
+                            <a th:href="@{/building/tenants-building-view/{buildingId}(buildingId=${building.buildingId})}" class="button">View</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination Controls -->
+                <div class="pagination-controls">
+                    <a th:if="${currentPage > 0}" th:href="@{/tenant/{tenantId}/home(tenantId=${tenantId}, page=${currentPage - 1}, sortField=${sortField}, sortOrder=${sortOrder}, keyword=${keyword})}">Previous</a>
+                    <a th:if="${currentPage < totalPages - 1}" th:href="@{/tenant/{tenantId}/home(tenantId=${tenantId}, page=${currentPage + 1}, sortField=${sortField}, sortOrder=${sortOrder}, keyword=${keyword})}">Next</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="content-section">
+            <h2>Profile</h2>
+            <div class="user-details">
+                <div class="profile-img">
+                    <img th:src="@{/images/tenant/{image}(image=${tenant.photo})}" alt="Tenant Image">
+                </div>
+                <p th:text="'Name: ' + ${tenant.userName}"></p>
+                <p th:text="'Email: ' + ${tenant.email}"></p>
+                <!-- Add more user details here if needed -->
+            </div>
+        </section>
+
+        <!-- Account Section -->
+        <section id="account" class="content-section">
+            <h2>Account Settings</h2>
+            <form th:action="@{/tenant/updateAccount}" method="post">
+                <!-- Account settings form fields go here -->
+                <button type="submit">Save Settings</button>
+            </form>
+            <button onclick="deleteAccount()">Delete Account</button>
+        </section>
+
+        <!-- Notifications Section -->
+        <!-- Notifications Section -->
+        <section id="notifications" class="content-section">
+            <h2>Notifications</h2>
+            <div class="notifications-list">
+                <div th:each="notification : ${notifications}" class="notification-item">
+                    <p th:text="${notification.message}"></p>
+                    <p th:text="${notification.date}"></p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Logout Section -->
+        <section id="logout" class="content-section">
+            <h2>Logout</h2>
+            <button onclick="confirmLogout()">Confirm Logout</button>
+        </section>
+    </div>
+</div>
+
+
+
+<script src="/js/tenant/tenant.js"></script>
+</body>
+</html>
+        

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIRECTOR HOME</title>
+    <link rel="stylesheet" href="/css/director.css">
+</head>
+<body>
+<header>
+    <div class="user-info">
+        <button id="toggle-sidebar">&#9776;</button>
+        <span id="director-username" th:text="${director.userName}">Director's Username</span>
+        <button id="logout-btn">Logout</button>
+    </div>
+    <div >
+        <span>GUAVA e-Hostels</span>
+    </div>
+</header>
+<aside id="sidebar">
+    <ul>
+        <li><a href="#profile">My Profile</a></li>
+        <li><a href="#tenants">Tenants</a></li>
+        <li><a href="#landlords">Landlords</a></li>
+        <li><a href="#staff">Staff</a></li>
+        <li><a href="#buildings">Buildings</a></li>
+        <li><a href="#houses">Houses</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+</aside>
+<main>
+    <div id="content">
+        <section id="profile">
+            <h2>Director's Profile</h2>
+            <div>
+                <img th:src="@{/images/director/{image}(image=${director.photo})}" alt="Director Photo" />
+                <p>Name: <span th:text="${director.firstName} + ' ' + ${director.lastName}"></span></p>
+                <p>Email: <span th:text="${director.email}"></span></p>
+            </div>
+        </section>
+
+        <section id="tenants" class="hidden">
+            <h2>Tenants</h2>
+            <input type="text" id="tenantSearch" placeholder="Search tenants...">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>ID Number</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="tenant : ${tenants}">
+                    <td th:text="${tenant.tenantId}"></td>
+                    <td th:text="${tenant.firstName} + ' ' + ${tenant.lastName}"></td>
+                    <td th:text="${tenant.email}"></td>
+                    <td th:text="${tenant.idNumber}"></td>
+                    <td>
+                        <button th:attr="data-id=${tenant.tenantId}" class="update-btn">Update</button>
+                        <button th:attr="data-id=${tenant.tenantId}" class="delete-btn">Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="pagination">
+                <button class="prev-page">Previous</button>
+                <button class="next-page">Next</button>
+            </div>
+        </section>
+
+        <section id="landlords" class="hidden">
+            <h2>Landlords</h2>
+            <input type="text" id="landlordSearch" placeholder="Search landlords...">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="landlord : ${landlords}">
+                    <td th:text="${landlord.landlordId}"></td>
+                    <td th:text="${landlord.firstName} + ' ' + ${landlord.lastName}"></td>
+                    <td th:text="${landlord.email}"></td>
+                    <td>
+                        <button th:attr="data-id=${landlord.landlordId}" class="update-btn">Update</button>
+                        <button th:attr="data-id=${landlord.landlordId}" class="delete-btn">Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="pagination">
+                <button class="prev-page">Previous</button>
+                <button class="next-page">Next</button>
+            </div>
+        </section>
+
+        <section id="staff" class="hidden">
+            <h2>Staff</h2>
+            <input type="text" id="staffSearch" placeholder="Search staff...">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="staff : ${staff}">
+                    <td th:text="${staff.staffId}"></td>
+                    <td th:text="${staff.firstName} + ' ' + ${staff.lastName}"></td>
+                    <td th:text="${staff.email}"></td>
+                    <td>
+                        <button th:attr="data-id=${staff.staffId}" class="update-btn">Update</button>
+                        <button th:attr="data-id=${staff.staffId}" class="delete-btn">Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="pagination">
+                <button class="prev-page">Previous</button>
+                <button class="next-page">Next</button>
+            </div>
+        </section>
+
+        <section id="buildings" class="hidden">
+            <h2>Buildings</h2>
+            <input type="text" id="buildingSearch" placeholder="Search buildings...">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Total Houses</th>
+                    <th>Area</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="building : ${buildings}">
+                    <td th:text="${building.buildingId}"></td>
+                    <td th:text="${building.buildingName}"></td>
+                    <td th:text="${building.totalHouses}"></td>
+                    <td th:text="${building.area}"></td>
+                    <td>
+                        <button th:attr="data-id=${building.buildingId}" class="update-btn">Update</button>
+                        <button th:attr="data-id=${building.buildingId}" class="delete-btn">Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="pagination">
+                <button class="prev-page">Previous</button>
+                <button class="next-page">Next</button>
+            </div>
+        </section>
+
+        <section id="houses" class="hidden">
+            <h2>Houses</h2>
+            <input type="text" id="houseSearch" placeholder="Search houses...">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Door Number</th>
+                    <th>Status</th>
+                    <th>Rent Amount</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="house : ${houses}">
+                    <td th:text="${house.houseId}"></td>
+                    <td th:text="${house.door_no}"></td>
+                    <td th:text="${house.houseStatus}"></td>
+                    <td th:text="${house.rentAmount}"></td>
+                    <td>
+                        <button th:attr="data-id=${house.houseId}" class="update-btn">Update</button>
+                        <button th:attr="data-id=${house.houseId}" class="delete-btn">Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="pagination">
+                <button class="prev-page">Previous</button>
+                <button class="next-page">Next</button>
+            </div>
+        </section>
+    </div>
+</main>
+<script src="/js/director.js"></script>
+</body>
+</html>
