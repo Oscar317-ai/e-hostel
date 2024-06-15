@@ -48,4 +48,26 @@ public class BuildingService {
     public List<Building> findAll() {
         return buildingRepository.findAll();
     }
+
+    public void updateBuilding(Long buildingId, Building updatedBuilding) {
+        Building buildingToUpdate = buildingRepository.findById(buildingId).orElse(null);
+
+        if (buildingToUpdate != null){
+            if (updatedBuilding.getBuildingName() != null){
+                buildingToUpdate.setBuildingName(updatedBuilding.getBuildingName());
+            }
+            if (updatedBuilding.getDistance()!= null){
+                buildingToUpdate.setDistance(updatedBuilding.getDistance());
+            }
+            if (updatedBuilding.getArea() != null){
+                buildingToUpdate.setArea(updatedBuilding.getArea());
+            }if (updatedBuilding.getPhoto() != null){
+                buildingToUpdate.setPhoto(updatedBuilding.getPhoto());
+            }
+            if (updatedBuilding.getStandardRent() > 0){
+                buildingToUpdate.setStandardRent(updatedBuilding.getStandardRent());
+            }
+        }
+        buildingRepository.save(buildingToUpdate);
+    }
 }

@@ -1,44 +1,45 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>House Details</title>
-    <link rel="stylesheet" type="text/css" href="/css/house/tenants-view.css">
+    <link rel="stylesheet" type="text/css" href="/css/house/tenants-house.css">
 </head>
+
 <body>
 <div class="container">
-    <h1>House Details</h1>
-
-
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>House Details</title>
-        <link rel="stylesheet" type="text/css" href="/css/house.css">
-    </head>
-    <body>
-    <div class="container">
-        <h1>House Details</h1>
-
-        <!-- House details section -->
-        <div class="house-details">
-            <h2>House Information</h2>
-            <div class="profile-img">
-                <img th:src="@{/images/house/{image}(image=${house.photo})}" alt="House Image">
-            </div>
-            <p>House Number: <span th:text="${house.door_no}"></span></p>
-            <p>Occupied: <span th:text="${house.houseStatus == T(com.guava.E_HOSTELS.hostel.house.HouseStatus).OCCUPIED ? 'Yes' : 'No'}"></span></p>
-            <p>House Status: <span th:text="${house.houseStatus}"></span></p>
-            <p>Rental Start Date: <span th:text="${house.rentalStartDate}"></span></p>
-            <p>Rental End Date: <span th:text="${house.rentalEndDate}"></span></p>
+    <header class="header">
+        <nav class="navbar">
+            <a href="/" class="navbar-brand">Guava e-Hostels</a>
+            <ul class="nav-list">
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/about}">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <h1 class="title">House Details</h1>
+    <div class="house-details">
+        <h2 class="section-title">House Information</h2>
+        <div class="profile-img">
+            <img th:src="@{/images/house/{image}(image=${house.photo})}" alt="House Image">
         </div>
+        <p><strong>House Number:</strong> <span th:text="${house.door_no}"></span></p>
+        <p><strong>House Status:</strong> <span th:text="${house.houseStatus}" th:style="'color: ' + (${house.houseStatus == 'VACANT' ? 'green' : 'red'})"></span></p>
+        <p><strong>Rent: </strong> <span th:text="${house.rentAmount}"></span></p>
+        <p><strong>Rental Start Date:</strong> <span th:text="${house.rentalStartDate}"></span></p>
+        <p><strong>Rental End Date:</strong> <span th:text="${house.rentalEndDate}"></span></p>
 
     </div>
+    <button class="back-button"  th:style="'color: ' + (${house.houseStatus == 'VACANT' ? 'green' : 'red'})">VACATE HOUSE</button>
+</div>
 
-    <script src="/js/house/tenants-view.js"></script>
-    </body>
-    </html>
 
+<div class="back-button">
+    <button class="btn" onclick="window.history.back()">Back</button>
+</div>
+<script src="/js/house/tenants-house.js"></script>
+</body>
+
+</html>

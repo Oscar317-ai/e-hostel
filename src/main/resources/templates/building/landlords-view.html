@@ -24,13 +24,32 @@
     <div class="profile-image">
         <img th:src="@{/images/building/{image}(image=${building.photo})}" alt="Building Image">
     </div>
-    <div class="Location-details">
-        <p><strong>Located</strong> <span th:text="${building.distance}"></span><strong> meters away from school at</strong><span th:text="${building.area}"></span></p>
+    <div class="location-details">
+        <p><strong>Located</strong> <span th:text="${building.distance}"></span><strong> meters away from school at </strong><span th:text="${building.area}"></span></p>
     </div>
     <div class="more-details">
         <p><strong>Demanded by:</strong><span th:text="${building.totalDemand}"></span> <strong>students</strong></p>
-        <p> <span th:text="${building.countVacantHouses()}"> <strong>vacancies</strong></span></p>
-        <button id="edit-button">Edit</button>
+        <p> <strong>vacancies: </strong> <span th:text="${building.countVacantHouses()}"></span> </p>
+        <button id="edit-button" class="btn" onclick="toggleEditForm()">Edit</button>
+    </div>
+
+    <!-- Edit Building Form -->
+    <div id="editBuildingForm" class="edit-form" style="display:none;">
+        <div class="form-content">
+            <button class="close-btn" onclick="toggleEditForm()">×</button>
+            <form th:action="@{'/building/update/' + ${building.buildingId}}" th:object="${building}" method="post" enctype="multipart/form-data">
+                <input type="hidden" th:field="*{buildingId}">
+                <label for="buildingName">Building Name:</label>
+                <input type="text" id="buildingName" th:field="*{buildingName}">
+                <label for="buildingDistance">Distance to School:</label>
+                <input type="text" id="buildingDistance" th:field="*{distance}">
+                <label for="buildingArea">Area:</label>
+                <input type="text" id="buildingArea" th:field="*{area}">
+                <label for="image">Profile Image:</label>
+                <input type="file" id="image" name="image">
+                <button type="submit" class="btn">Update</button>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -59,20 +78,10 @@
     </div>
 </div>
 
-<!-- Edit Building Form -->
-<div id="editBuildingForm" style="display:none;">
-    <form th:action="@{/building/update}" th:object="${building}" method="post">
-        <input type="hidden" th:field="*{buildingId}">
-        <label for="buildingName">Building Name:</label>
-        <input type="text" id="buildingName" th:field="*{buildingName}">
-        <button type="submit">Update</button>
-    </form>
-</div>
-
-
 <div class="back-button">
     <button class="btn" onclick="window.history.back()">Back</button>
 </div>
+
 <!-- Footer Section -->
 <footer class="airbnb-footer">
     <p>&copy; 2024 Your Guava e-Hostels</p>
@@ -86,8 +95,13 @@
 <!-- JavaScript for initializing the map -->
 <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
 
-
 <!-- Additional JavaScript can be added here for further enhancements -->
 <script src="/js/building/landlords-view.js"></script>
+<script>
+    function toggleEditForm() {
+        const form = document.getElementById('editBuildingForm');
+        form.style.display = form.style.display === 'none' ? 'flex' : 'none';
+    }
+</script>
 </body>
 </html>

@@ -42,14 +42,27 @@ public class HouseService {
     public void updateHouse(Long houseId, House updatedHouse) {
         House houseToUpdate = houseRepository.findById(houseId).orElse(null);
         if (houseToUpdate != null) {
-            houseToUpdate.setDoor_no(updatedHouse.getDoor_no());
-            houseToUpdate.setHouseStatus(updatedHouse.getHouseStatus());
-            houseToUpdate.setPhoto(updatedHouse.getPhoto());
-            houseToUpdate.setRentAmount(updatedHouse.getRentAmount());
-            houseToUpdate.setTenant(updatedHouse.getTenant());
-            houseToUpdate.setRentalStartDate(updatedHouse.getRentalStartDate());
-            houseToUpdate.setRentalEndDate(updatedHouse.getRentalEndDate());
-            // Update other fields as needed
+            if (updatedHouse.getDoor_no() > 0){
+                houseToUpdate.setDoor_no(updatedHouse.getDoor_no());
+            }
+            if (updatedHouse.getHouseStatus() != null){
+                houseToUpdate.setHouseStatus(updatedHouse.getHouseStatus());
+            }
+            if (updatedHouse.getPhoto() != null){
+                houseToUpdate.setPhoto(updatedHouse.getPhoto());
+            }
+            if (updatedHouse.getRentAmount() > 0){
+                houseToUpdate.setRentAmount(updatedHouse.getRentAmount());
+            }
+
+            if (updatedHouse.getRentalStartDate() != null){
+                houseToUpdate.setRentalStartDate(updatedHouse.getRentalStartDate());
+            }
+            if (updatedHouse.getRentalEndDate() != null){
+                houseToUpdate.setRentalEndDate(updatedHouse.getRentalEndDate());
+            }
+
+
             houseRepository.save(houseToUpdate);
         }
 

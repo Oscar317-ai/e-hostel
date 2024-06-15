@@ -25,11 +25,11 @@
         <img th:src="@{/images/building/{image}(image=${building.photo})}" alt="Building Image">
     </div>
     <div class="Location-details">
-        <p><strong>Located</strong> <span th:text="${building.distance}"></span><strong> meters away from school at</strong><span th:text="${building.area}"></span></p>
+        <p><strong>Located</strong> <span th:text="${building.distance}"></span><strong> meters away from school at </strong><span th:text="${building.area}"></span></p>
     </div>
     <div class="more-details">
         <p><strong>Demanded by:</strong><span th:text="${building.totalDemand}"></span> <strong>students</strong></p>
-        <p> <span th:text="${building.countVacantHouses()}"> <strong>vacancies</strong></span></p>
+        <p><strong>vacancies: </strong> <span th:text="${building.countVacantHouses()}"> </span></p>
     </div>
 </div>
 

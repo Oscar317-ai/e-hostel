@@ -17,7 +17,7 @@ import java.util.List;
 public class BuildingDTO {
     private Long buildingId;
     private String buildingName;
-    private HouseStatus houseStatus;
+
     private String area;
     private Long distance;
     private String photo;

@@ -30,7 +30,6 @@ public class EntityMapper  {
         buildingDTO.setBuildingName(building.getBuildingName());
         buildingDTO.setBuildingId(building.getBuildingId());
         buildingDTO.setArea(building.getArea());
-        buildingDTO.setHouseStatus(building.getHouseStatus());
         buildingDTO.setHouses(building.getHouses());
         buildingDTO.setDistance(building.getDistance());
         buildingDTO.setLandlord(building.getLandlord());

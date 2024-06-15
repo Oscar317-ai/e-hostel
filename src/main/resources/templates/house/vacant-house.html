@@ -27,6 +27,7 @@
         </div>
         <p><strong>House Number:</strong> <span th:text="${house.door_no}"></span></p>
         <p><strong>House Status:</strong> <span th:text="${house.houseStatus}" th:style="'color: ' + (${house.houseStatus == 'VACANT' ? 'green' : 'red'})"></span></p>
+        <p><strong>Rent: </strong> <span th:text="${house.rentAmount}"></span></p>
         <p><strong>Rental Start Date:</strong> <span th:text="${house.rentalStartDate}"></span></p>
         <p><strong>Rental End Date:</strong> <span th:text="${house.rentalEndDate}"></span></p>
     </div>
@@ -74,6 +75,8 @@
                 <li>“Promotions” refer to contests, sweepstakes or other promotions offered through the Service.</li>
             </ul>
         </div>
+
+        <p class="house-details"> <strong>Amount to be charged :</strong> <span th:text="${house.rentAmount}"  th:style="'color: ' + (${house.houseStatus == 'VACANT' ? 'green' : 'red'})"></span></p>
         <form id="paymentForm" class="payment-form" onsubmit="submitForm(event)">
             <label for="idNumber">ID Number:</label>
             <input type="number" id="idNumber" required><br>

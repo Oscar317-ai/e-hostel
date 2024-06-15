@@ -24,10 +24,9 @@ public class Building {
     private Long buildingId;
     private String buildingName;
     private int totalDemand;
+    private int standardRent;
 
 
-    @Enumerated(EnumType.STRING)
-    private HouseStatus houseStatus;
 
     private String area;
     private Long distance;
