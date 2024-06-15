@@ -1,92 +1,88 @@
-/* Global styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f7f7f7;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 800px;
+    margin: 20px auto;
     padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-    margin-top: 0;
+    text-align: center;
+    color: #333;
 }
 
 .house-details {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
     margin-top: 20px;
 }
 
-.house-details p {
-    margin: 0;
-    margin-bottom: 10px;
-}
-
-.actions {
+.house-info {
     margin-top: 20px;
 }
 
-/* Modal styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
+.profile-img {
+    text-align: center;
 }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
+.profile-img img {
+    max-width: 100%;
     border-radius: 10px;
-    width: 50%;
 }
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
+.house-info p {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.action-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn {
+    background-color: #ff5a5f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.btn:hover {
+    background-color: #ff4045;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
     font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-#termsCheckbox {
-    margin-bottom: 10px;
-}
-
-button[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    cursor: pointer;
 }
 
-button[type="submit"]:hover {
-    background-color: #45a049;
+.form-group input[type="file"] {
+    padding: 3px;
 }
 
-/* Adjustments for small screens */
-@media (max-width: 768px) {
-    .modal-content {
-        width: 80%;
-    }
+#editHouseForm {
+    margin-top: 20px;
 }

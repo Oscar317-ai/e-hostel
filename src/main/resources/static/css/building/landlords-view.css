@@ -1,256 +1,193 @@
-/* tenant.css */
-
-/* Global styles */
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background: #f7f7f7;
     margin: 0;
     padding: 0;
+}
+
+/* Header Styles */
+.airbnb-header {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.airbnb-header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-/* CSS for fixed header */
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000; /* Adjust the z-index as needed */
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-/* Adjust the margin of the content container to accommodate the fixed header */
-.content-container {
-    margin-top: 60px; /* Adjust the value based on the height of your header */
-}
-
-/* Ensure the sidebar appears below the fixed header */
-.sidebar {
-    margin-top: 60px; /* Adjust the value based on the height of your header */
-}
-
-
-.header-container, .footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-}
-
-.footer-container {
-    border-top: 1px solid #e0e0e0;
     justify-content: center;
 }
 
-.header-left span, .footer-container p {
-    font-size: 18px;
+.airbnb-header nav ul li {
+    margin: 0 15px;
+}
+
+.airbnb-header nav ul li a {
+    color: #333;
+    text-decoration: none;
     font-weight: bold;
 }
 
-.header-right .profile-img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
+.airbnb-header nav ul li a:hover {
+    color: #ff5a5f;
 }
 
-.header-right .profile-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+/* Profile Section Styles */
+.airbnb-profile {
+    background: #fff;
+    padding: 40px;
+    margin: 20px auto;
+    width: 80%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
 }
 
-.main-container {
-    display: flex;
-    flex: 1;
+.airbnb-profile h1 {
+    font-size: 32px;
+    opacity: 0.7;
+    margin-bottom: 20px;
+}
+
+.location-details p {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.more-details {
+    display: block;
+    align-items: center;
+    align-self:flex-end;
+    margin-top: 40px;
+    opacity: 0.7;
+    border: 1px solid #ddd;
 }
 
 
-.nav-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-.nav-list li {
-    padding: 15px 20px;
-}
-
-.nav-list li a {
+.more-details p {
+    display: inline-block;
+    border: #e0dcdc 1px solid;
+    margin: 3px 0;
+    padding: 1px;
+    border-radius: 10px;
     color: white;
-    text-decoration: none;
-    display: block;
+    background-color: rgb(6, 236, 6);
+    box-shadow: #11bb30 1px 1px 1px;
+    font-size: 15px;
 }
 
-.nav-list li a:hover {
-    background-color: #495057;
+.more-details p :hover {
+    margin: 3px 0;
+    padding: 1px;
+    border-radius: 10px;
+    background-color: rgb(153, 177, 156);
+    font-size: 15px;
 }
 
-.content-container {
-    margin-left: 200px;
-    padding: 20px;
-    width: calc(100% - 200px);
+
+.profile-image img {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-bottom: 20px;
 }
 
-.content-section {
-    display: none;
+/* Map Section Styles */
+.airbnb-map {
+    background: #fff;
+    padding: 40px;
+    margin: 20px auto;
+    width: 80%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
 }
 
-.content-section.active {
-    display: block;
+.airbnb-map h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
 }
 
-.card-container {
+#map {
+    width: 100%;
+    height: 400px;
+    border-radius: 10px;
+}
+
+/* Houses Section Styles */
+.airbnb-posts {
+    background: #fff;
+    padding: 40px;
+    margin: 20px auto;
+    width: 80%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.airbnb-posts h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.house-cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
 }
 
-.card {
+.house-card {
+    background: #fff;
     width: 300px;
+    margin: 15px;
     padding: 20px;
-    margin: 20px;
-    border: 1px solid #ccc;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
 }
 
-.profile-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-bottom: 10px;
+.house-card:hover {
+    transform: scale(1.05);
 }
 
-.card img, .profile-img img {
-    max-width: 100%;
-    height: 100%;
-    object-fit: cover;
+.house-details p {
+    margin: 10px 0;
 }
 
-.search-section {
-    margin: 20px 0;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #f8f9fa;
-}
-
-.searchbar {
-    display: flex;
-    align-items: center;
-}
-
-.searchbar input {
-    width: 300px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 10px;
-}
-
-.searchbar button {
-    background-color: #007bff;
+.house-details button {
+    background-color: #ff5a5f;
+    color: #fff;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.2s;
 }
 
-.searchbar button img.icn.srchicn {
-    width: 20px;
-    height: 20px;
+.back-button .btn {
+    background-color: #ff5a5f;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
-.report-body {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+.house-details button:hover {
+    background-color: #e04448;
 }
 
-
-
-.building-card {
-    width: calc(50% - 20px); /* Initially set to display two cards per row */
-    margin-bottom: 20px; /* Add some bottom margin to separate rows */
+/* Footer Styles */
+.airbnb-footer {
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 20px;
 }
-
-@media screen and (max-width: 768px) {
-    /* Adjust for smaller screens, display one card per row */
-    .building-card {
-        width: calc(100% - 40px); /* Take up full width with padding */
-        margin: 20px; /* Add margin to separate cards */
-    }
-}
-
-
-@media screen and (min-width: 992px) {
-    /* Adjust for larger screens, display three cards per row */
-    .building-card {
-        width: calc(33.333% - 20px); /* Adjust width for three cards */
-    }
-}
-
-@media screen and (min-width: 1200px) {
-    /* Adjust for extra-large screens, display four cards per row */
-    .building-card {
-        width: calc(25% - 20px); /* Adjust width for four cards */
-    }
-}
-
-
-
-
-.notifications-list {
-    margin: 20px 0;
-}
-
-.notification-item {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-}
-/* Add this CSS to your existing CSS file */
-
-.card-container-horizontal {
-    display: flex;
-    overflow-x: auto; /* Enable horizontal scrolling */
-    padding-bottom: 20px; /* Add some bottom padding to avoid cutting off the last card */
-}
-
-.card-container-horizontal .card {
-    flex: 0 0 auto; /* Maintain the fixed width for each card */
-    margin-right: 20px; /* Add some space between cards */
-}
-
-.report-body {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between; /* Adjust card spacing */
-}
-
-.building-card {
-    width: calc(50% - 20px); /* Adjust the width to fit two cards per row with spacing */
-    margin-bottom: 20px; /* Add some bottom margin to separate rows */
-}
-
-
-.sidebar {
-    width: 150px; /* Adjusted width */
-    background-color: #343a40;
-    color: white;
-    height: 100%;
-    position: fixed;
-    transition: width 0.3s; /* Add transition for smooth animation */
-}
-
-.sidebar.collapsed {
-    width: 0px; /* Adjusted collapsed width */
-}
-
-.main-container {
-    display: flex;
-    flex: 1;
-    transition: margin-left 0.3s; /* Add transition for smooth animation */
-}
-

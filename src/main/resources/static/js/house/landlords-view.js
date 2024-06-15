@@ -1,39 +1,36 @@
-function submitForm(event) {
-    event.preventDefault();
-    if (!document.getElementById("termsCheckbox").checked) {
-        alert("Please accept the terms and conditions.");
-        return;
-    }
-    // Validate other form inputs if needed
-    let idNumber = document.getElementById("idNumber").value;
-    let phoneNumber = document.getElementById("phoneNumber").value;
-    if (!idNumber || !phoneNumber) {
-        alert("Please fill in all required fields.");
-        return;
-    }
-    // Submit form data via AJAX or proceed with a regular form submission
-    // For demonstration purposes, let's assume a successful AJAX request
-    simulatePaymentProcess();
-}
+document.addEventListener("DOMContentLoaded", function() {
+    const editButton = document.getElementById("edit-house-button");
+    const backButton = document.getElementById("back-button");
+    const deleteButton = document.getElementById("delete-house-button");
+    const editForm = document.getElementById("editHouseForm");
+    const updateForm = document.getElementById("update-house-form");
 
-function simulatePaymentProcess() {
-    // Show loading animation while waiting for response
-    showLoadingAnimation();
-    // Simulate payment process with a delay
-    setTimeout(() => {
-        // Once payment is successful, update house status and add to tenant's homes
-        updateHouseStatusAndAddToTenantHomes();
-    }, 4000);
-}
+    editButton.addEventListener("click", function() {
+        editForm.style.display = "block";
+        window.scrollTo(0, editForm.offsetTop);
+    });
 
-function showLoadingAnimation() {
-    // Display a loading animation (e.g., spinner) to indicate processing
-    // For demonstration purposes, let's log a message instead
-    console.log("Processing payment...");
-}
+    backButton.addEventListener("click", function() {
+        history.back();
+    });
 
-function updateHouseStatusAndAddToTenantHomes() {
-    // Perform AJAX request to update house status and add to tenant's homes
-    // For demonstration purposes, let's log a success message
-    console.log("Payment successful. Updating house status and adding to tenant's homes...");
-}
+    deleteButton.addEventListener("click", function() {
+        const confirmDelete = confirm("Are you sure you want to delete this house?");
+        if (confirmDelete) {
+            const houseId = updateForm.querySelector('input[name="houseId"]').value;
+            fetch(`/house/delete/${houseId}`, { method: 'GET' })
+                .then(response => {
+                    if (response.ok) {
+                        alert("House deleted successfully.");
+                        history.back();
+                    } else {
+                        alert("Failed to delete the house.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("An error occurred while deleting the house.");
+                });
+        }
+    });
+});

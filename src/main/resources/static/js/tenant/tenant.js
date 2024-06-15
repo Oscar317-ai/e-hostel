@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Ensure elements exist before adding event listeners
     const toggleSidebarButton = document.getElementById('toggle-sidebar');
-    const logoutButton = document.getElementById('logout-btn');
+
     const sidebarLinks = document.querySelectorAll('#sidebar ul li a');
 
     if (toggleSidebarButton) {
@@ -11,13 +11,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    if (logoutButton) {
-        logoutButton.addEventListener('click', function() {
-            if (confirm("Are you sure you want to logout?")) {
-                window.location.href = "/logout";
-            }
-        });
-    }
 
     if (sidebarLinks) {
         sidebarLinks.forEach(link => {
@@ -29,6 +22,14 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
+function confirmLogout() {
+    if (confirm("Are you sure you want to logout?")) {
+        // Redirect to logout URL
+        window.location.href = "/logout";
+    }
+}
+
 
 // Function to load content dynamically based on tab
 function loadContent(tab) {

@@ -1,121 +1,93 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>LANDLORD BUILDING</title>
-    <link rel="stylesheet" type="text/css" href="/css/building/landlords-view.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${building.buildingName}">Building Profile</title>
+    <link rel="stylesheet" href="/css/building/landlords-view.css">
 </head>
 <body>
-<header>
-    <div class="header-container">
-        <div class="header-left">
-            <button class="collapse-button" onclick="toggleSidebar()">
-                <span id="collapse-icon">&#9776;</span>
-            </button>
-            <span th:text="${building.buildingName}"></span>
-        </div>
-        <div class="header-right">
-            <img th:src="@{/images/building/{image}(image=${building.photo})}" alt="Building Image" class="profile-img">
-        </div>
-    </div>
+<!-- Header Section -->
+<header class="airbnb-header">
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/about}">About Us</a></li>
+            <li><a th:href="@{/contact}">Contact Us</a></li>
+        </ul>
+    </nav>
 </header>
 
-<div class="main-container">
-    <aside class="sidebar">
-        <ul class="nav-list">
-            <li><a href="#" onclick="showSection('dashboard')">Dashboard</a></li>
-            <li><a href="#" onclick="showSection('profile')">Profile</a></li>
-            <li><a href="#" onclick="showSection('account')">Account</a></li>
-            <li><a href="#" onclick="showSection('notifications')">Notifications</a></li>
-            <li><a href="#" onclick="showSection('logout')">Logout</a></li>
-        </ul>
-    </aside>
-
-    <div class="content-container">
-        <!-- Dashboard Section -->
-        <section id="dashboard" class="content-section active">
-            <!-- My Homes section -->
-            <div class="section">
-                <h2>ALL HOUSES</h2>
-                <div class="card-container-horizontal">
-                    <div th:each="home : ${houses}" class="card" th:onclick="'redirectToHouse(' + ${home.houseId} + ')'">
-                        <div class="profile-img">
-                            <img th:src="@{/images/house/{image}(image=${home.photo})}" alt="House Image">
-                        </div>
-                        <span th:text="'Your House number ' + ${home.door_no} + ' is in ' + ${home.building.area}"></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- House Details Section -->
-            <section id="house-details" class="content-section">
-                <h2>House Details</h2>
-                <div id="houseDetailsContainer">
-                    <template id="houseDetailsTemplate">
-                        <div class="house-details">
-                            <p>WHEN CLICKED, THE HOUSE DETAILS WILL BE DISPLAYED HERE</p>
-                        </div>
-                    </template>
-                </div>
-            </section>
-        </section>
-
-        <!-- Profile Section -->
-        <section id="profile" class="content-section">
-            <h2>Profile</h2>
-            <div class="user-details">
-                <img th:src="@{/images/building/{image}(image=${building.photo})}" alt="Building Image">
-            </div>
-            <h1 th:text="${building.buildingName}"></h1>
-            <p th:text="'Area: ' + ${building.area}"></p>
-            <h2>Vacant Houses: <span th:text="${building.countVacantHouses()}"></span></h2>
-
-            <!-- Upload Terms and Conditions -->
-            <div class="upload-terms">
-                <h2>Upload Terms and Conditions</h2>
-                <form id="uploadForm" enctype="multipart/form-data">
-                    <input type="file" id="termsFile" name="termsFile" accept=".txt,.doc,.docx" required>
-                    <button type="submit">Upload</button>
-                </form>
-            </div>
-
-            <!-- Display Uploaded Terms and Conditions -->
-            <div id="uploadedTerms">
-                <h2>Terms and Conditions</h2>
-                <div id="termsContent">
-                    <!-- Display uploaded terms dynamically here -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Account Section -->
-        <section id="account" class="content-section">
-            <h2>Account Settings</h2>
-            <form th:action="@{/tenant/updateAccount}" method="post">
-                <!-- Account settings form fields go here -->
-                <button type="submit">Save Settings</button>
-            </form>
-            <button onclick="deleteAccount()">Delete Account</button>
-        </section>
-
-        <!-- Notifications Section -->
-        <section id="notifications" class="content-section">
-            <h2>Notifications</h2>
-            <div class="notifications-list">
-                <div th:each="notification : ${notifications}" class="notification-item">
-                    <p th:text="${notification.message}"></p>
-                    <p th:text="${notification.date}"></p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Logout Section -->
-        <section id="logout" class="content-section">
-            <h2>Logout</h2>
-            <button onclick="confirmLogout()">Confirm Logout</button>
-        </section>
+<!-- Building Details Section -->
+<div class="airbnb-profile">
+    <h1 th:text="${building.buildingName}">Building Name</h1>
+    <div class="profile-image">
+        <img th:src="@{/images/building/{image}(image=${building.photo})}" alt="Building Image">
+    </div>
+    <div class="Location-details">
+        <p><strong>Located</strong> <span th:text="${building.distance}"></span><strong> meters away from school at</strong><span th:text="${building.area}"></span></p>
+    </div>
+    <div class="more-details">
+        <p><strong>Demanded by:</strong><span th:text="${building.totalDemand}"></span> <strong>students</strong></p>
+        <p> <span th:text="${building.countVacantHouses()}"> <strong>vacancies</strong></span></p>
+        <button id="edit-button">Edit</button>
     </div>
 </div>
 
+<!-- Map Section -->
+<div class="airbnb-map">
+    <h2>Location Map</h2>
+    <div id="map"></div>
+</div>
+
+<!-- Houses Section -->
+<div class="airbnb-posts">
+    <h2>Houses</h2>
+    <div class="house-cards">
+        <div th:each="house : ${building.houses}" class="house-card">
+            <div class="house-details">
+                <div class="profile-img">
+                    <img th:src="@{/images/house/{image}(image=${house.photo})}" alt="House Image">
+                </div>
+                <p>House Number: <span th:text="${house.door_no}"></span></p>
+                <p>Current Status: <span th:text="${house.houseStatus}"></span></p>
+                <form th:action="@{'/building/landlords-house-view/' + ${house.houseId}}" method="get">
+                    <button type="submit">See More</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Building Form -->
+<div id="editBuildingForm" style="display:none;">
+    <form th:action="@{/building/update}" th:object="${building}" method="post">
+        <input type="hidden" th:field="*{buildingId}">
+        <label for="buildingName">Building Name:</label>
+        <input type="text" id="buildingName" th:field="*{buildingName}">
+        <button type="submit">Update</button>
+    </form>
+</div>
+
+
+<div class="back-button">
+    <button class="btn" onclick="window.history.back()">Back</button>
+</div>
+<!-- Footer Section -->
+<footer class="airbnb-footer">
+    <p>&copy; 2024 Your Guava e-Hostels</p>
+</footer>
+
+<!-- JavaScript for extracting building ID from URL -->
+<script th:inline="javascript">
+    var buildingId = /*[[${param.id}]]*/ '';
+</script>
+
+<!-- JavaScript for initializing the map -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+
+
+<!-- Additional JavaScript can be added here for further enhancements -->
 <script src="/js/building/landlords-view.js"></script>
 </body>
 </html>

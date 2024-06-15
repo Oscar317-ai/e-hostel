@@ -50,7 +50,7 @@ header {
 .logo {
     position: absolute;
     left: 50%;
-    transform: translateX(-40%);
+    transform: translateX(-50%);
     text-align: center;
     white-space: nowrap; /* Prevent text wrapping */
 }
@@ -70,9 +70,6 @@ header {
 .logo span {
     display: inline-block;
 }
-
-
-
 
 .sidebar {
     width: 250px;
@@ -94,7 +91,6 @@ header {
     overflow-y: auto;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
 }
-
 
 .sidebar.active {
     left: 0;
@@ -125,17 +121,15 @@ main {
     margin-left: 0;
     padding: 20px;
     transition: margin-left 0.3s ease;
-
 }
 
 main.active {
-    margin-left: 200px;
+    margin-left: 250px;
 }
 
 main #content {
     padding: 20px;
-    background:  linear-gradient(rgba(0,0,0,0.055),rgba(5, 248, 106, 0.75));
-
+    background: linear-gradient(rgba(0, 0, 0, 0.055), rgba(5, 248, 106, 0.75));
     border-radius: 4px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -150,7 +144,6 @@ img {
     margin-left: 70px;
     padding: 20px;
     width: calc(100% - 100px);
-
 }
 
 .content-section {
@@ -161,8 +154,6 @@ img {
     display: block;
 }
 
-
-
 .card {
     width: 300px;
     padding: 20px;
@@ -170,7 +161,6 @@ img {
     border: 1px solid rgba(212, 213, 220, 0.579);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
 }
 
 .profile-img {
@@ -184,7 +174,6 @@ img {
 .houses {
     display: block;
     border-radius: 10px;
-
 }
 
 .houses h2 {
@@ -210,15 +199,11 @@ img {
     object-fit: cover;
 }
 
-
-
-
-.building-section{
+.building-section {
     display: block;
     box-shadow: 0 4px 8px rgba(8, 0, 0, 0.1);
     border: 1px white solid;
     border-radius: 10px;
-
 }
 
 /* Style the search bar */
@@ -272,22 +257,6 @@ img {
     text-decoration: underline;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-    .searchbar input {
-        max-width: 300px;
-    }
-
-    .searchbar button {
-        padding: 10px;
-    }
-
-    .pagination-controls a {
-        margin: 0 5px;
-    }
-}
-
-
 .report-body {
     display: flex;
     flex-wrap: wrap;
@@ -319,8 +288,6 @@ img {
     height: 80%;
 }
 
-
-
 .notifications-list {
     margin: 20px 0;
 }
@@ -328,4 +295,116 @@ img {
 .notification-item {
     padding: 10px;
     border-bottom: 1px solid #ccc;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logo {
+        position: static;
+        transform: none;
+    }
+
+    .searchbar input {
+        max-width: 300px;
+    }
+
+    .searchbar button {
+        padding: 10px;
+    }
+
+    .pagination-controls a {
+        margin: 0 5px;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background-color: rgba(43, 43, 43, 1);
+    }
+
+    .sidebar ul {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    .sidebar ul li {
+        padding: 10px 5px;
+    }
+
+    .sidebar ul li a {
+        text-align: center;
+    }
+
+    main {
+        margin-top: 80px;
+        padding-bottom: 60px; /* Space for bottom nav */
+    }
+
+    .houses .card-container-horizontal {
+        flex-direction: column;
+    }
+
+    .houses .card-container-horizontal .card {
+        margin: 10px auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-info button {
+        font-size: 16px;
+    }
+
+    .building-card {
+                width: 100%; /* Ensure full width for building cards on very small screens */
+                margin: 10px 0; /* Adjust margin for spacing */
+            }
+
+            .houses .card-container-horizontal {
+                flex-direction: column; /* Ensure cards stack vertically on very small screens */
+                align-items: center; /* Center align for better appearance */
+            }
+
+    .user-info #director-username {
+        font-size: 14px;
+    }
+
+    .searchbar input {
+        max-width: 200px;
+    }
+
+    .pagination-controls {
+        flex-direction: column;
+    }
+
+    .pagination-controls a {
+        margin: 5px 0;
+    }
+
+    .building-card {
+        width: 90%;
+        margin: 10px auto;
+    }
+
+    .sidebar ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+
+
 }

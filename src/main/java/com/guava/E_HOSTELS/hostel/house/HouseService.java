@@ -43,6 +43,7 @@ public class HouseService {
         House houseToUpdate = houseRepository.findById(houseId).orElse(null);
         if (houseToUpdate != null) {
             houseToUpdate.setDoor_no(updatedHouse.getDoor_no());
+            houseToUpdate.setHouseStatus(updatedHouse.getHouseStatus());
             houseToUpdate.setPhoto(updatedHouse.getPhoto());
             houseToUpdate.setRentAmount(updatedHouse.getRentAmount());
             houseToUpdate.setTenant(updatedHouse.getTenant());

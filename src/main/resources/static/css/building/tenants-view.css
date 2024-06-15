@@ -49,13 +49,45 @@ body {
 
 .airbnb-profile h1 {
     font-size: 32px;
+    opacity: 0.7;
     margin-bottom: 20px;
 }
 
-.profile-details p {
+.location-details p {
     margin: 10px 0;
     font-size: 18px;
 }
+
+.more-details {
+    display: block;
+    align-items: center;
+    align-self:flex-end;
+    margin-top: 40px;
+    opacity: 0.7;
+    border: 1px solid #ddd;
+}
+
+
+.more-details p {
+    display: inline-block;
+    border: #e0dcdc 1px solid;
+    margin: 3px 0;
+    padding: 1px;
+    border-radius: 10px;
+    color: white;
+    background-color: rgb(6, 236, 6);
+    box-shadow: #11bb30 1px 1px 1px;
+    font-size: 15px;
+}
+
+.more-details p :hover {
+    margin: 3px 0;
+    padding: 1px;
+    border-radius: 10px;
+    background-color: rgb(153, 177, 156);
+    font-size: 15px;
+}
+
 
 .profile-image img {
     width: 200px;

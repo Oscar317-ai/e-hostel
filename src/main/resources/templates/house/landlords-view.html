@@ -5,30 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>House Details</title>
     <link rel="stylesheet" type="text/css" href="/css/house/landlords-view.css">
-
+</head>
 <body>
 
-    <div class="container">
-        <h1>House Details</h1>
+<div class="container">
+    <h1>House Details</h1>
 
-        <!-- House details section -->
-        <div class="house-details">
-            <h2>House Information</h2>
-            <div class="profile-img">
-                <img th:src="@{/images/house/{image}(image=${house.photo})}" alt="House Image">
-            </div>
-            <p>House Number: <span th:text="${house.door_no}"></span></p>
-            <p>Occupied: <span th:text="${house.houseStatus == T(com.guava.E_HOSTELS.hostel.house.HouseStatus).OCCUPIED ? 'Yes' : 'No'}"></span></p>
-            <p>House Status: <span th:text="${house.houseStatus}"></span></p>
-            <p>Rental Start Date: <span th:text="${house.rentalStartDate}"></span></p>
-            <p>Rental End Date: <span th:text="${house.rentalEndDate}"></span></p>
+    <!-- House details section -->
+    <div class="house-details">
+        <h2>House Information</h2>
+        <div class="profile-img">
+            <img th:src="@{/images/house/{image}(image=${house.photo})}" alt="House Image">
+        </div>
+        <div class="house-info">
+            <p><strong>House Number:</strong> <span th:text="${house.door_no}"></span></p>
+            <p><strong>Occupied:</strong> <span th:text="${house.houseStatus == T(com.guava.E_HOSTELS.hostel.house.HouseStatus).OCCUPIED ? 'Yes' : 'No'}"></span></p>
+            <p><strong>House Status:</strong> <span th:text="${house.houseStatus}"></span></p>
+            <p><strong>RENT:</strong> <span th:text="${house.rentAmount}"></span></p>
+            <p><strong>Rental Start Date:</strong> <span th:text="${house.rentalStartDate}"></span></p>
+            <p><strong>Rental End Date:</strong> <span th:text="${house.rentalEndDate}"></span></p>
         </div>
 
+        <!-- Actions buttons -->
+        <div class="action-buttons">
+            <button id="edit-house-button" class="btn">Edit</button>
+            <button id="delete-house-button" class="btn">Delete</button>
+            <button id="back-button" class="btn">Back</button>
+        </div>
+
+        <!-- Edit form -->
+        <div id="editHouseForm" style="display:none;">
+            <form id="update-house-form" th:action="@{'/house/update/' + ${house.houseId}}" th:object="${house}" method="post" enctype="multipart/form-data">
+                <input type="hidden" th:field="*{houseId}">
+                <div class="form-group">
+                    <label for="door_no">Door Number:</label>
+                    <input type="text" id="door_no" th:field="*{door_no}">
+                </div>
+                <div class="form-group">
+                    <label for="rent">RENT:</label>
+                    <input type="text" id="rent" th:field="*{rentAmount}">
+                </div>
+                <div class="form-group">
+                    <label for="houseStatus">House Status:</label>
+                    <select id="houseStatus" th:field="*{houseStatus}">
+                        <option th:value="VACANT">Vacant</option>
+                        <option th:value="OCCUPIED">Occupied</option>
+                        <option th:value="UNAVAILABLE">Unavailable</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="rentalStartDate">Rental Start Date:</label>
+                    <input type="date" id="rentalStartDate" th:field="*{rentalStartDate}">
+                </div>
+                <div class="form-group">
+                    <label for="rentalEndDate">Rental End Date:</label>
+                    <input type="date" id="rentalEndDate" th:field="*{rentalEndDate}">
+                </div>
+                <div class="form-group">
+                    <label for="image">Profile Image:</label>
+                    <input type="file" id="image" name="image">
+                </div>
+                <button type="submit" class="btn">Update</button>
+            </form>
+        </div>
     </div>
+</div>
 
-
-
-    <script src="/js/house/landlords-view.js"></script>
-    </body>
+<script src="/js/house/landlords-view.js"></script>
+</body>
 </html>
-
