@@ -1,23 +1,37 @@
-// tenant.js
-function toggleSidebar() {
-    const sidebar = document.querySelector('.sidebar');
-    const mainContainer = document.querySelector('.content-container');
-    if (sidebar.classList.contains('collapsed')) {
-        sidebar.classList.remove('collapsed');
-        mainContainer.style.marginLeft = '150px'; // Adjust the margin to match the sidebar width
-    } else {
-        sidebar.classList.add('collapsed');
-        mainContainer.style.marginLeft = '0';
+document.addEventListener("DOMContentLoaded", function() {
+    // Ensure elements exist before adding event listeners
+    const toggleSidebarButton = document.getElementById('toggle-sidebar');
+    const logoutButton = document.getElementById('logout-btn');
+    const sidebarLinks = document.querySelectorAll('#sidebar ul li a');
+
+    if (toggleSidebarButton) {
+        toggleSidebarButton.addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.querySelector('main').classList.toggle('active');
+        });
     }
-}
 
+    if (logoutButton) {
+        logoutButton.addEventListener('click', function() {
+            if (confirm("Are you sure you want to logout?")) {
+                window.location.href = "/logout";
+            }
+        });
+    }
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    // Initially show the dashboard section
-    showSection('dashboard');
+    if (sidebarLinks) {
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                let tab = this.getAttribute('href').substring(1);
+                loadContent(tab);
+            });
+        });
+    }
 });
 
-function showSection(sectionId) {
+// Function to load content dynamically based on tab
+function loadContent(tab) {
     // Hide all content sections
     let sections = document.querySelectorAll('.content-section');
     sections.forEach(section => {
@@ -25,19 +39,15 @@ function showSection(sectionId) {
     });
 
     // Show the selected section
-    document.getElementById(sectionId).classList.add('active');
-}
-
-function confirmLogout() {
-    if (confirm("Are you sure you want to logout?")) {
-        // Redirect to logout URL
-        window.location.href = "/logout";
+    let selectedSection = document.getElementById(tab);
+    if (selectedSection) {
+        selectedSection.classList.add('active');
     }
 }
 
+// Add more JavaScript functionalities as needed
 function deleteAccount() {
     if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
-        // Call the delete account URL
         fetch('/delete-account', { method: 'DELETE' })
             .then(response => {
                 if (response.ok) {
@@ -55,5 +65,9 @@ function deleteAccount() {
 }
 
 function redirectToHouse(houseId) {
-  window.location.href = "/house/tenant-house/" + houseId;
+    window.location.href = "/house/tenant-house/" + houseId;
+}
+
+function redirectToBuilding(buildingId) {
+    window.location.href = "/building/tenants-building-view/" + buildingId;
 }

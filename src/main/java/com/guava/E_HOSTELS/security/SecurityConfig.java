@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,7 +50,12 @@ public class SecurityConfig {
 
 
         @Bean
-        SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        SecurityFilterChain securityFilterChain(HttpSecurity http )throws Exception {
+
+//            registry.addMapping("/**")
+//                    .allowedOrigins("http://localhost:4200")
+//                    .allowedMethods("GET","POST","PUT","DELETE","OPTIONS");
+
             return http
                     .csrf().disable()
                     .formLogin(form->form

@@ -10,27 +10,35 @@
 
 <body>
 <div class="container">
-    <h1>House Details</h1>
+    <header class="header">
+        <nav class="navbar">
+            <a href="/" class="navbar-brand">Guava e-Hostels</a>
+            <ul class="nav-list">
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/about}">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <h1 class="title">House Details</h1>
     <div class="house-details">
-        <h2>House Information</h2>
+        <h2 class="section-title">House Information</h2>
         <div class="profile-img">
             <img th:src="@{/images/house/{image}(image=${house.photo})}" alt="House Image">
         </div>
-        <p>House Number: <span th:text="${house.door_no}"></span></p>
-        <p>Occupied: <span th:text="${house.houseStatus == T(com.guava.E_HOSTELS.hostel.house.HouseStatus).OCCUPIED ? 'Yes' : 'No'}"></span></p>
-        <p>House Status: <span th:text="${house.houseStatus}"></span></p>
-        <p>Rental Start Date: <span th:text="${house.rentalStartDate}"></span></p>
-        <p>Rental End Date: <span th:text="${house.rentalEndDate}"></span></p>
+        <p><strong>House Number:</strong> <span th:text="${house.door_no}"></span></p>
+        <p><strong>House Status:</strong> <span th:text="${house.houseStatus}" th:style="'color: ' + (${house.houseStatus == 'VACANT' ? 'green' : 'red'})"></span></p>
+        <p><strong>Rental Start Date:</strong> <span th:text="${house.rentalStartDate}"></span></p>
+        <p><strong>Rental End Date:</strong> <span th:text="${house.rentalEndDate}"></span></p>
     </div>
     <div class="actions">
-        <h2>Actions</h2>
+        <h2 class="section-title">Actions</h2>
         <div th:if="${house.houseStatus == T(com.guava.E_HOSTELS.hostel.house.HouseStatus).VACANT}">
             <input type="hidden" id="houseId" th:value="${house.houseId}">
-            <button type="button" onclick="openModal()">Rent House</button>
+            <button type="button" class="btn" onclick="openModal()">Rent House</button>
         </div>
         <div th:if="${house.houseStatus == T(com.guava.E_HOSTELS.hostel.house.HouseStatus).OCCUPIED}">
             <input type="hidden" id="houseId2" th:value="${house.houseId}">
-            <input type="checkbox" onclick="updateBookings(event)"> Book House
+            <input type="checkbox" class="checkbox" onclick="updateBookings(event)"> Book House
         </div>
 
         <div th:if="${house.houseStatus == T(com.guava.E_HOSTELS.hostel.house.HouseStatus).UNAVAILABLE}">
@@ -43,24 +51,45 @@
         <span class="close" onclick="closeModal()">&times;</span>
         <div class="terms">
             <h2>Terms and Conditions</h2>
-            <p>Terms and Conditions ("Terms")...JABAA!!!!</p>
-            <h3>Najua huJasoma hizi conditions so </h3>
-            <h1>keja ni 5k</h1>
+            <p>Sample Terms and Conditions Template</p>
+            <p>Terms and Conditions ("Terms")</p>
+            <p>Our Terms and Conditions were last updated on [DATE].</p>
+            <p>Please read these terms and conditions carefully before using Our Service.</p>
+            <h3>Interpretation and Definitions</h3>
+            <p>Interpretation</p>
+            <p>The words of which the initial letter is capitalized have meanings defined under the following conditions.</p>
+            <p>The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.</p>
+            <h3>Definitions</h3>
+            <p>For the purposes of these Terms and Conditions:</p>
+            <ul>
+                <li>“Affiliate” means an entity that controls, is controlled by or is under common control with a party, where "control" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.</li>
+                <li>“Account” means a unique account created for You to access our Service or parts of our Service.</li>
+                <li>“Company” (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to [COMPANY_INFORMATION].</li>
+                <li>“Country” refers to [COMPANY_COUNTRY].</li>
+                <li>“Content” refers to content such as text, images, or other information that can be posted, uploaded, linked to or otherwise made available by You, regardless of the form of that content.</li>
+                <li>“Device” means any device that can access the Service such as a computer, a cellphone or a digital tablet.</li>
+                <li>“Feedback” means feedback, innovations or suggestions sent by You regarding the attributes, performance or features of our Service.</li>
+                <li>“Products” refer to the products or items offered for sale on the Service.</li>
+                <li>“Orders” mean a request by You to purchase Products from Us.</li>
+                <li>“Promotions” refer to contests, sweepstakes or other promotions offered through the Service.</li>
+            </ul>
         </div>
-        <form id="paymentForm" onsubmit="submitForm(event)">
+        <form id="paymentForm" class="payment-form" onsubmit="submitForm(event)">
             <label for="idNumber">ID Number:</label>
             <input type="number" id="idNumber" required><br>
             <label for="phoneNumber">Phone Number:</label>
             <input type="text" id="phoneNumber" required><br>
-            <label>
-                <input type="checkbox" id="termsCheckbox"> I have read and agree to the terms and conditions
-            </label>
-            <button type="submit">PAY NOW</button>
+            <input type="checkbox" id="termsCheckbox">
+            <label for="termsCheckbox">I have read and agree to the terms and conditions</label>
+            <button type="submit" class="btn">PAY NOW</button>
         </form>
     </div>
 </div>
 <div id="loadingAnimation" class="loading">
     <div class="spinner"></div>
+</div>
+<div class="back-button">
+    <button class="btn" onclick="window.history.back()">Back</button>
 </div>
 <script src="/js/house/tenants-view.js"></script>
 </body>

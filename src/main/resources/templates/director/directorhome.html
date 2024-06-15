@@ -13,7 +13,7 @@
         <span id="director-username" th:text="${director.userName}">Director's Username</span>
         <button id="logout-btn">Logout</button>
     </div>
-    <div >
+    <div>
         <span>GUAVA e-Hostels</span>
     </div>
 </header>
@@ -39,6 +39,7 @@
             </div>
         </section>
 
+        <!-- Repeating structure for other entities -->
         <section id="tenants" class="hidden">
             <h2>Tenants</h2>
             <input type="text" id="tenantSearch" placeholder="Search tenants...">
@@ -70,6 +71,8 @@
                 <button class="next-page">Next</button>
             </div>
         </section>
+
+        <!-- Similar structure for Landlords, Staff, Buildings, and Houses -->
 
         <section id="landlords" class="hidden">
             <h2>Landlords</h2>
@@ -110,6 +113,7 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Position</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -118,6 +122,7 @@
                     <td th:text="${staff.staffId}"></td>
                     <td th:text="${staff.firstName} + ' ' + ${staff.lastName}"></td>
                     <td th:text="${staff.email}"></td>
+                    <td th:text="${staff.position}"></td>
                     <td>
                         <button th:attr="data-id=${staff.staffId}" class="update-btn">Update</button>
                         <button th:attr="data-id=${staff.staffId}" class="delete-btn">Delete</button>
@@ -194,6 +199,8 @@
                 <button class="next-page">Next</button>
             </div>
         </section>
+
+
     </div>
 </main>
 <script src="/js/director.js"></script>

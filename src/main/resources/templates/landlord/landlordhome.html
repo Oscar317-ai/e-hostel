@@ -47,36 +47,41 @@
                 </div>
             </div>
 
-            <!-- Search Section -->
-            <div class="search-section">
-                <h1>CREATE NEW BUILDING </h1>
-            </div>
-
             <!-- Main Content Section -->
-            <div>
-                <div class="report-body">
+            <div class="create-building">
+                <h1>Create a new building</h1>
+                <div class="form">
                     <form th:action="@{/landlord/{landlordId}/buildings(landlordId=${landlord.landlordId})}" th:object="${building}" method="post" enctype="multipart/form-data">
-                        <label for="buildingName">Building Name:</label>
-                        <input type="text" id="buildingName" th:field="*{buildingName}" required>
+                        <div class="form-group">
+                            <label for="buildingName">Building Name:</label>
+                            <input type="text" id="buildingName" th:field="*{buildingName}" required>
+                        </div>
 
-                        <label for="totalHouses">Total Houses:</label>
-                        <input type="number" id="totalHouses" th:field="*{totalHouses}" required>
+                        <div class="form-group">
+                            <label for="totalHouses">Total Houses:</label>
+                            <input type="number" id="totalHouses" th:field="*{totalHouses}" required>
+                        </div>
 
-                        <label for="area">Area:</label>
-                        <input type="text" id="area" th:field="*{area}" required>
+                        <div class="form-group">
+                            <label for="area">Area:</label>
+                            <input type="text" id="area" th:field="*{area}" required>
+                        </div>
 
-                        <label for="distance">Distance:</label>
-                        <input type="number" id="distance" th:field="*{distance}" required>
+                        <div class="form-group">
+                            <label for="distance">Distance from School(metres):</label>
+                            <input type="number" id="distance" th:field="*{distance}" required>
+                        </div>
 
                         <div class="form-group">
                             <label for="image">Building Image:</label>
-                            <input type="file" id="image" name="image" required>
+                            <input type="file" id="image" name="image">
                         </div>
 
                         <button type="submit">Create Building</button>
                     </form>
                 </div>
             </div>
+
         </section>
 
         <!-- Profile Section -->

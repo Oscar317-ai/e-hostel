@@ -2,13 +2,15 @@
 body, html {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
+    background-color: #1E1E1E; /* Dark background */
+    color: #E8E8E8; /* Light text color */
 }
 
 /* Header styles */
 header {
-    background-color: #333;
-    color: #fff;
+    background-color: #242424;
+    color: #E8E8E8;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
@@ -17,6 +19,7 @@ header {
     width: 100%;
     top: 0;
     z-index: 100;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .logo {
@@ -37,7 +40,7 @@ header {
 .user-info button {
     background-color: transparent;
     border: none;
-    color: #fff;
+    color: #E8E8E8;
     cursor: pointer;
     font-size: 20px;
     margin-right: 10px;
@@ -51,13 +54,14 @@ header {
 aside {
     width: 250px;
     height: 100%;
-    background-color: #f4f4f4;
+    background-color: #2B2B2B;
     position: fixed;
     top: 60px; /* Adjust to match header height */
     left: -250px;
     transition: left 0.3s ease;
     z-index: 50;
     overflow-y: auto;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
 }
 
 aside.active {
@@ -75,11 +79,13 @@ ul li {
 
 ul li a {
     text-decoration: none;
-    color: #333;
+    color: #E8E8E8;
+    display: block;
 }
 
 ul li a:hover {
-    background-color: #ddd;
+    background-color: #424242;
+    border-radius: 4px;
 }
 
 /* Main content styles */
@@ -96,7 +102,7 @@ main.active {
 
 main #content {
     padding: 20px;
-    background: #fff;
+    background: #2A2A2A;
     border-radius: 4px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -115,10 +121,12 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    background-color: #333;
+    color: #E8E8E8;
 }
 
 table, th, td {
-    border: 1px solid #ddd;
+    border: 1px solid #555;
 }
 
 th, td {
@@ -127,7 +135,7 @@ th, td {
 }
 
 th {
-    background-color: #f4f4f4;
+    background-color: #424242;
 }
 
 .pagination {
@@ -135,4 +143,55 @@ th {
     justify-content: space-between;
 }
 
-/* Additional CSS as needed */
+.pagination button {
+    background-color: #424242;
+    color: #E8E8E8;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.pagination button:hover {
+    background-color: #555;
+}
+
+/* Input field styles */
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #333;
+    color: #E8E8E8;
+}
+
+input[type="text"]::placeholder {
+    color: #bbb;
+}
+
+/* Button styles */
+button.update-btn, button.delete-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+button.delete-btn {
+    background-color: #F44336;
+}
+
+button.update-btn:hover, button.delete-btn:hover {
+    opacity: 0.8;
+}
+
+/* Table hover effect */
+table tbody tr:hover {
+    background-color: #444;
+}

@@ -1,95 +1,156 @@
-/* tenant.css */
-
-/* Global styles */
-body {
-    font-family: Arial, sans-serif;
+body, html {
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(175, 204, 175);
+    background-size: cover;
+    color: #E8E8E8; /* Light text color */
 }
 
-/* CSS for fixed header */
 header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000; /* Adjust the z-index as needed */
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #e0e0e0;
-}
+    /* Background color */
+    background-color: rgba(255, 255, 255, 0.5); /* Colorless background with opacity */
 
-/* Adjust the margin of the content container to accommodate the fixed header */
-.content-container {
-    margin-top: 60px; /* Adjust the value based on the height of your header */
-}
+    /* Blur effect */
+    backdrop-filter: blur(8px); /* Adjust the blur radius as needed */
+    -webkit-backdrop-filter: blur(8px); /* For Safari */
 
-/* Ensure the sidebar appears below the fixed header */
-.sidebar {
-    margin-top: 60px; /* Adjust the value based on the height of your header */
-}
-
-
-.header-container, .footer-container {
+    /* Other styles */
+    color: #353333; /* Text color */
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-}
-
-.footer-container {
-    border-top: 1px solid #e0e0e0;
-    justify-content: center;
-}
-
-.header-left span, .footer-container p {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.header-right .profile-img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-}
-
-.header-right .profile-img img {
+    position: fixed;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
 }
 
-.main-container {
+.user-info {
     display: flex;
-    flex: 1;
+    align-items: center;
+}
+
+.user-info button {
+    background-color: transparent;
+    border: none;
+    color: #483838;
+    cursor: pointer;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.user-info #director-username {
+    margin-right: 20px;
+}
+
+.logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-40%);
+    text-align: center;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+.user-img {
+    display: flex;
+    align-items: center;
+}
+
+.user-img img {
+    width: 40px; /* Adjust the size as needed */
+    height: 40px; /* Adjust the size as needed */
+    border-radius: 50%;
+    margin-left: 20px; /* Space between logo and user image */
+}
+
+.logo span {
+    display: inline-block;
 }
 
 
-.nav-list {
+
+
+.sidebar {
+    width: 250px;
+    height: 100%;
+
+    /* Background color */
+    background-color: rgba(43, 43, 43, 0.5); /* Colorless background with opacity */
+
+    /* Blur effect */
+    backdrop-filter: blur(8px); /* Adjust the blur radius as needed */
+    -webkit-backdrop-filter: blur(8px); /* For Safari */
+
+    /* Other styles */
+    position: fixed;
+    top: 60px;
+    left: -250px;
+    transition: left 0.3s ease;
+    z-index: 50;
+    overflow-y: auto;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar ul {
     list-style-type: none;
     padding: 0;
 }
 
-.nav-list li {
-    padding: 15px 20px;
+.sidebar ul li {
+    padding: 10px;
 }
 
-.nav-list li a {
-    color: white;
+.sidebar ul li a {
     text-decoration: none;
+    color: #E8E8E8;
     display: block;
 }
 
-.nav-list li a:hover {
-    background-color: #495057;
+.sidebar ul li a:hover {
+    background-color: #424242;
+    border-radius: 4px;
+}
+
+main {
+    margin-top: 30px;
+    margin-left: 0;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+
+}
+
+main.active {
+    margin-left: 200px;
+}
+
+main #content {
+    padding: 20px;
+    background:  linear-gradient(rgba(0,0,0,0.055),rgba(5, 248, 106, 0.75));
+
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+img {
+    max-width: 150px;
+    border-radius: 50%;
 }
 
 .content-container {
-    margin-left: 200px;
+    margin-top: 60px;
+    margin-left: 70px;
     padding: 20px;
-    width: calc(100% - 200px);
+    width: calc(100% - 100px);
+
 }
 
 .content-section {
@@ -100,19 +161,16 @@ header {
     display: block;
 }
 
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
+
 
 .card {
     width: 300px;
     padding: 20px;
     margin: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid rgba(212, 213, 220, 0.579);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
 }
 
 .profile-img {
@@ -123,83 +181,80 @@ header {
     margin-bottom: 10px;
 }
 
+.houses {
+    display: block;
+    border-radius: 10px;
+
+}
+
+.houses h2 {
+    color: white;
+}
+
+.houses .card-container-horizontal {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 20px;
+}
+
+.houses .card-container-horizontal .card {
+    flex: 0 0 auto;
+    margin-right: 20px;
+    color: white;
+    border: 1px white solid;
+}
+
 .card img, .profile-img img {
     max-width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.search-section {
-    margin: 20px 0;
-    padding: 20px;
-    border: 1px solid #ccc;
+
+
+
+.building-section{
+    display: block;
+    box-shadow: 0 4px 8px rgba(8, 0, 0, 0.1);
+    border: 1px white solid;
     border-radius: 10px;
-    background-color: #f8f9fa;
+
 }
 
+/* Style the search bar */
 .searchbar {
     display: flex;
-    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
 }
 
 .searchbar input {
-    width: 300px;
+    width: 100%;
+    max-width: 500px; /* Adjust max-width as needed */
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 10px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-right: none;
+    box-sizing: border-box;
 }
 
 .searchbar button {
-    background-color: #007bff;
-    border: none;
+    background-color: #034706;
+    color: white;
+    border: 1px solid #034706;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
     cursor: pointer;
+    box-sizing: border-box;
 }
 
-.searchbar button img.icn.srchicn {
-    width: 20px;
-    height: 20px;
-}
-
-.report-body {
+.searchbar form {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    width: 100%;
+    max-width: 600px; /* Adjust max-width as needed */
 }
-
-
-
-.building-card {
-    width: calc(50% - 20px); /* Initially set to display two cards per row */
-    margin-bottom: 20px; /* Add some bottom margin to separate rows */
-}
-
-@media screen and (max-width: 768px) {
-    /* Adjust for smaller screens, display one card per row */
-    .building-card {
-        width: calc(100% - 40px); /* Take up full width with padding */
-        margin: 20px; /* Add margin to separate cards */
-    }
-}
-
-
-@media screen and (min-width: 992px) {
-    /* Adjust for larger screens, display three cards per row */
-    .building-card {
-        width: calc(33.333% - 20px); /* Adjust width for three cards */
-    }
-}
-
-@media screen and (min-width: 1200px) {
-    /* Adjust for extra-large screens, display four cards per row */
-    .building-card {
-        width: calc(25% - 20px); /* Adjust width for four cards */
-    }
-}
-
-
 
 .pagination-controls {
     display: flex;
@@ -209,13 +264,62 @@ header {
 
 .pagination-controls a {
     margin: 0 10px;
-    color: #007bff;
+    color: #075a0a;
     text-decoration: none;
 }
 
 .pagination-controls a:hover {
     text-decoration: underline;
 }
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .searchbar input {
+        max-width: 300px;
+    }
+
+    .searchbar button {
+        padding: 10px;
+    }
+
+    .pagination-controls a {
+        margin: 0 5px;
+    }
+}
+
+
+.report-body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 10px;
+}
+
+.building-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    color: white;
+    border: 1px solid white;
+    padding: 10px;
+}
+
+.building-card img {
+    border: 1px solid rgba(212, 213, 220, 0.579);
+    border-radius: 10px;
+    width: auto;
+    height: 80%;
+}
+
+
 
 .notifications-list {
     margin: 20px 0;
@@ -225,47 +329,3 @@ header {
     padding: 10px;
     border-bottom: 1px solid #ccc;
 }
-/* Add this CSS to your existing CSS file */
-
-.card-container-horizontal {
-    display: flex;
-    overflow-x: auto; /* Enable horizontal scrolling */
-    padding-bottom: 20px; /* Add some bottom padding to avoid cutting off the last card */
-}
-
-.card-container-horizontal .card {
-    flex: 0 0 auto; /* Maintain the fixed width for each card */
-    margin-right: 20px; /* Add some space between cards */
-}
-
-.report-body {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between; /* Adjust card spacing */
-}
-
-.building-card {
-    width: calc(50% - 20px); /* Adjust the width to fit two cards per row with spacing */
-    margin-bottom: 20px; /* Add some bottom margin to separate rows */
-}
-
-
-.sidebar {
-    width: 150px; /* Adjusted width */
-    background-color: #343a40;
-    color: white;
-    height: 100%;
-    position: fixed;
-    transition: width 0.3s; /* Add transition for smooth animation */
-}
-
-.sidebar.collapsed {
-    width: 0px; /* Adjusted collapsed width */
-}
-
-.main-container {
-    display: flex;
-    flex: 1;
-    transition: margin-left 0.3s; /* Add transition for smooth animation */
-}
-

@@ -59,8 +59,6 @@ document.addEventListener("DOMContentLoaded", function() {
         loadingAnimation.style.display = "none";
     }
 
-
-
     window.updateBookings = function(event) {
         const increment = event.target.checked ? 1 : -1;
         const houseId = document.getElementById("houseId2").value;

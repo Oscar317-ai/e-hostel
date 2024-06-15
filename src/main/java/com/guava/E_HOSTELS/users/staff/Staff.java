@@ -26,6 +26,7 @@ public class Staff {
     private String lastName;
     private String password;
     private String photo;
+    private String position;
 
 
     @Column(unique = true, nullable = false)

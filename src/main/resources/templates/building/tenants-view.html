@@ -1,68 +1,87 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${building.buildingName}">Building Profile</title>
     <link rel="stylesheet" href="/css/building/tenants-view.css">
 </head>
-
 <body>
-<!-- Header Section --><!-- Header Section -->
-<header class="social-media-header">
+<!-- Header Section -->
+<header class="airbnb-header">
     <nav>
         <ul>
             <li><a th:href="@{/}">Home</a></li>
             <li><a th:href="@{/about}">About Us</a></li>
+            <li><a th:href="@{/contact}">Contact Us</a></li>
         </ul>
     </nav>
 </header>
 
 <!-- Building Details Section -->
-<div class="social-media-profile">
+<div class="airbnb-profile">
     <h1 th:text="${building.buildingName}">Building Name</h1>
+    <div class="profile-image">
+        <img th:src="@{/images/building/{image}(image=${building.photo})}" alt="Building Image">
+    </div>
     <div class="profile-details">
         <p><strong>Area:</strong> <span th:text="${building.area}"></span></p>
         <p><strong>Distance:</strong> <span th:text="${building.distance}"></span></p>
-        <p> <span th:text="${building.totalDemand}"></span><strong> students want a house here</strong></p>
+        <p><span th:text="${building.totalDemand}"></span> <strong>students want a house here</strong></p>
         <p><strong>Vacant Houses:</strong> <span th:text="${building.countVacantHouses()}"></span></p>
     </div>
-    <div class="profile-image">
-        <img th:src="@{/images/building/{image}(image=${building.photo})}" alt="Building Image">    </div>
+</div>
+
+<!-- Map Section -->
+<div class="airbnb-map">
+    <h2>Location Map</h2>
+    <div id="map"></div>
 </div>
 
 <!-- Houses Section -->
-<div class="social-media-posts">
+<div class="airbnb-posts">
     <h2>Houses</h2>
     <div class="house-cards">
         <div th:each="house : ${building.houses}" class="house-card">
             <div class="house-details">
-
                 <div class="profile-img">
                     <img th:src="@{/images/house/{image}(image=${house.photo})}" alt="House Image">
                 </div>
                 <p>House Number: <span th:text="${house.door_no}"></span></p>
                 <p>Current Status: <span th:text="${house.houseStatus}"></span></p>
-                <form  th:action="@{'/house/vacant/' + ${house.houseId}}" method="get">
-                    <button type="submit"  >See More</button>
+                <form th:action="@{'/house/vacant/' + ${house.houseId}}" method="get">
+                    <button type="submit">See More</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+<div class="back-button">
+    <button class="btn" onclick="window.history.back()">Back</button>
+</div>
 <!-- Footer Section -->
-<footer class="social-media-header">
-    <p>&copy; 2024 Your Real Estate Company</p>
+<footer class="airbnb-footer">
+    <p>&copy; 2024 Your Guava e-Hostels</p>
 </footer>
+
 <!-- JavaScript for extracting building ID from URL -->
 <script th:inline="javascript">
     var buildingId = /*[[${param.id}]]*/ '';
 </script>
 
+<!-- JavaScript for initializing the map -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+<script>
+    function initMap() {
+        var mapOptions = {
+            center: { lat: -34.397, lng: 150.644 },
+            zoom: 8
+        };
+        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    }
+</script>
+
 <!-- Additional JavaScript can be added here for further enhancements -->
 <script src="/js/building/tenants-view.js"></script>
 </body>
-
 </html>

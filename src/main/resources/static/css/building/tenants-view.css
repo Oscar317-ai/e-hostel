@@ -1,105 +1,161 @@
-/* Header Styles */
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-image: url('/static/mi.jpg');
-    background-attachment: fixed;
+    font-family: 'Arial', sans-serif;
+    background: #f7f7f7;
     margin: 0;
     padding: 0;
-    position: relative; /* Make the body a relative positioning context */
 }
 
-.social-media-header {
-  background-color:  rgba(255, 255, 255, 0.3);
-  color: #007bfff;
-  padding: 10px 0;
+/* Header Styles */
+.airbnb-header {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.social-media-header nav ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+.airbnb-header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
 }
 
-.social-media-header nav ul li {
-  display: inline-block;
-  margin-right: 20px;
+.airbnb-header nav ul li {
+    margin: 0 15px;
 }
 
-.social-media-header nav ul li a {
-  color: #fff;
-  text-decoration: none;
+.airbnb-header nav ul li a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.airbnb-header nav ul li a:hover {
+    color: #ff5a5f;
 }
 
 /* Profile Section Styles */
-.social-media-profile {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 20px;
+.airbnb-profile {
+    background: #fff;
+    padding: 40px;
+    margin: 20px auto;
+    width: 80%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
 }
 
-.social-media-profile h1 {
-  margin-top: 0;
-  font-size: 24px;
+.airbnb-profile h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
 }
 
 .profile-details p {
-  margin: 5px 0;
+    margin: 10px 0;
+    font-size: 18px;
 }
 
-/* Profile Image Styles */
 .profile-image img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%; /* Make the image circular */
-  margin-top: 10px;
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-bottom: 20px;
 }
 
+/* Map Section Styles */
+.airbnb-map {
+    background: #fff;
+    padding: 40px;
+    margin: 20px auto;
+    width: 80%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.airbnb-map h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+#map {
+    width: 100%;
+    height: 400px;
+    border-radius: 10px;
+}
 
 /* Houses Section Styles */
-.social-media-posts {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.airbnb-posts {
+    background: #fff;
+    padding: 40px;
+    margin: 20px auto;
+    width: 80%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
-.social-media-posts h2 {
-  margin-top: 0;
-  font-size: 20px;
+.airbnb-posts h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .house-cards {
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .house-card {
-  width: calc(33.33% - 20px); /* Adjust the width as needed */
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin: 10px;
+    background: #fff;
+    width: 300px;
+    margin: 15px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
 }
 
-.house-details {
-  padding: 15px;
+.house-card:hover {
+    transform: scale(1.05);
 }
 
 .house-details p {
-  margin: 5px 0;
+    margin: 10px 0;
 }
 
 .house-details button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
+    background-color: #ff5a5f;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.back-button .btn {
+    background-color: #ff5a5f;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
 .house-details button:hover {
-  background-color: #0056b3;
+    background-color: #e04448;
+}
+
+/* Footer Styles */
+.airbnb-footer {
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 20px;
 }

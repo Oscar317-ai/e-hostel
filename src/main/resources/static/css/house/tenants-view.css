@@ -1,20 +1,73 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Circular', 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #fafafa;
+    color: #484848;
 }
 
 .container {
-    max-width: 800px;
-    margin: 20px auto;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
-    background: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1, h2 {
+.header {
+    background-color: #ffffff;
+    padding: 10px 0;
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    font-size: 24px;
+
+    color: black;
+    text-decoration: none;
+}
+
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-list li {
+    margin-left: 20px;
+}
+
+.nav-list li a {
+    text-decoration: none;
+    color: #484848;
+    font-weight: bold;
+}
+
+.title {
     text-align: center;
+    font-size: 36px;
+    color: #484848;
+}
+
+.house-details {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.section-title {
+    font-size: 28px;
+    color: #484848;
+    border-bottom: 1px solid #e4e4e4;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .profile-img img {
@@ -22,23 +75,30 @@ h1, h2 {
     margin: 0 auto;
     max-width: 100%;
     height: auto;
+    border-radius: 8px;
 }
 
 .actions {
     text-align: center;
 }
 
-button {
+.btn {
     padding: 10px 20px;
     margin: 10px;
-    background-color: #007BFF;
+    background-color: #FF5A5F;
     color: #fff;
     border: none;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 16px;
 }
 
-button:hover {
-    background-color: #0056b3;
+.btn:hover {
+    background-color: #FF3A3E;
+}
+
+.checkbox {
+    margin-top: 10px;
 }
 
 .modal {
@@ -54,11 +114,12 @@ button:hover {
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: #fff;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+    border-radius: 8px;
 }
 
 .close {
@@ -73,6 +134,30 @@ button:hover {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+
+.terms {
+    text-align: left;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.payment-form label {
+    margin-bottom: 10px;
+}
+
+.payment-form input {
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 100%;
 }
 
 .loading {

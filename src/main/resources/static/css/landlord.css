@@ -8,16 +8,18 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: #343a40;
 }
 
 /* CSS for fixed header */
 header {
+    color: white;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 1000; /* Adjust the z-index as needed */
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #e0e0e0;
+    background-color: #0c0b6a;
+    border-bottom: 1px solid #727171;
 }
 
 /* Adjust the margin of the content container to accommodate the fixed header */
@@ -31,17 +33,13 @@ header {
 }
 
 
-.header-container, .footer-container {
+.header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
 }
 
-.footer-container {
-    border-top: 1px solid #e0e0e0;
-    justify-content: center;
-}
 
 .header-left span, .footer-container p {
     font-size: 18px;
@@ -77,7 +75,7 @@ header {
 }
 
 .nav-list li a:hover {
-    background-color: #495057;
+    background-color: #6444ae;
 }
 
 .content-container {
@@ -98,15 +96,21 @@ header {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+
+}
+
+.section {
+    color: aliceblue;
 }
 
 .card {
+    color: white;
     width: 300px;
     padding: 20px;
     margin: 20px;
     border: 1px solid #ccc;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(188, 177, 177, 0.1);
 }
 
 .profile-img {
@@ -123,51 +127,96 @@ header {
     object-fit: cover;
 }
 
-.search-section {
-    margin: 20px 0;
+
+.create-building {
+    /* Set maximum width for the container */
+    max-width: 600px;
+    /* Center the container horizontally */
+    margin: 0 auto;
+    /* Add padding inside the container */
     padding: 20px;
+    /* Add border to the container */
     border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #f8f9fa;
+    /* Round the corners of the container */
+    border-radius: 8px;
+    /* Set background color for the container */
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent to show blur effect */
+    /* Add a box shadow for a card-like appearance */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* Add backdrop filter to blur the background */
+    backdrop-filter: blur(50px);
 }
 
-.searchbar {
+.create-building h1 {
+    /* Center the text */
+    text-align: center;
+    /* Add margin below the heading */
+    margin-bottom: 20px;
+    /* Set font size for the heading */
+    font-size: 24px;
+    /* Set color for the heading text */
+    color: #296e9d;
+}
+
+.create-building .form {
+    /* Use flexbox to arrange elements in a column */
     display: flex;
-    align-items: center;
+    flex-direction: column;
 }
 
-.searchbar input {
-    width: 300px;
+.create-building .form-group {
+    /* Add margin below each form group */
+    margin-bottom: 15px;
+}
+
+.create-building label {
+    /* Make labels block elements to control spacing */
+    display: block;
+    /* Add margin below labels */
+    margin-bottom: 5px;
+    /* Make label text bold */
+    font-weight: bold;
+    /* Set color for label text */
+    color: #4d707e;
+}
+
+.create-building input[type="text"],
+.create-building input[type="number"],
+.create-building input[type="file"] {
+    /* Make inputs full width */
+    width: 100%;
+    /* Add padding inside inputs */
     padding: 10px;
+    /* Add border to inputs */
     border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 10px;
+    /* Round the corners of inputs */
+    border-radius: 4px;
+    /* Ensure inputs use border-box sizing */
+    box-sizing: border-box;
 }
 
-.searchbar button {
-    background-color: #007bff;
+.create-building button {
+    /* Make button full width */
+    width: 100%;
+    /* Add padding inside the button */
+    padding: 10px;
+    /* Set background color for the button */
+    background-color: #1310c8;
+    /* Set text color for the button */
+    color: white;
+    /* Remove default border */
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    /* Round the corners of the button */
+    border-radius: 4px;
+    /* Change cursor to pointer on hover */
     cursor: pointer;
+    /* Set font size for button text */
+    font-size: 16px;
 }
 
-.searchbar button img.icn.srchicn {
-    width: 20px;
-    height: 20px;
-}
-
-.report-body {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-
-
-.building-card {
-    width: calc(50% - 20px); /* Initially set to display two cards per row */
-    margin-bottom: 20px; /* Add some bottom margin to separate rows */
+.create-building button:hover {
+    /* Change background color on hover */
+    background-color: #218838;
 }
 
 @media screen and (max-width: 768px) {
@@ -246,7 +295,7 @@ header {
 
 .sidebar {
     width: 150px; /* Adjusted width */
-    background-color: #343a40;
+    background-color: #0a2052;
     color: white;
     height: 100%;
     position: fixed;
