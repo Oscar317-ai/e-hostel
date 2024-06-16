@@ -110,6 +110,7 @@ public class HouseController {
         // Get the current tenant's email
 
        String userEmail = successHandler.getUserEmail();
+        System.out.println(" EMAIL: "+ successHandler.getUserEmail());
 
         Tenant tenant = tenantService.findByemail(userEmail);
 

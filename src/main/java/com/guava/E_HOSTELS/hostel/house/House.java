@@ -37,7 +37,7 @@ public class House {
     private Tenant tenant;
 
     // Other rental information fields
-    private LocalDate rentalStartDate;
+    private LocalDate rentalStartDate = LocalDate.now();
     private LocalDate rentalEndDate;
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -1,117 +1,141 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Tenant Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="/css/tenant/tenant.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenant Dashboard - Guava e-Hostels</title>
+    <link rel="stylesheet" href="/css/tenant/tenant.css">
 </head>
 <body>
 <header>
-    <div class="user-info">
-        <button id="toggle-sidebar">&#9776;</button>
-        <span id="director-username" th:text="${tenant.userName}">Tenant's Username</span>
-    </div>
-    <div class="logo">
-        <span>GUAVA e-Hostels</span>
-    </div>
-    <div class="user-img">
-        <img th:src="@{/images/tenant/{image}(image=${tenant.photo})}" alt="Tenant Image">
-    </div>
+    <h1><span id="tenant-userName" th:text="${tenant.userName}">Tenant's Username</span></h1>
+    <img class="profile-picture" th:src="@{/images/tenant/{image}(image=${tenant.photo})}" alt="Tenant Image">
 </header>
+<nav>
+    <button class="tablink" onclick="openSection(event, 'home-listings')">Home Listings</button>
+    <button class="tablink" onclick="openSection(event, 'rental-history')">Rental History</button>
+    <button class="tablink" onclick="openSection(event, 'notifications')">Notifications</button>
+    <button class="tablink" onclick="openSection(event, 'settings')">Settings</button>
+    <button class="tablink" onclick="openSection(event, 'payments')">Payments</button>
+    <button class="tablink" onclick="openSection(event, 'support')">Support</button>
+</nav>
 
+<section id="home-listings" class="tabcontent">
+    <h2>Available Homes</h2>
 
-<aside id="sidebar" class="sidebar">
-    <ul>
-        <li><a href="#dashboard">Dashboard</a></li>
-        <li><a href="#profile">Profile</a></li>
-        <li><a href="#account">Account</a></li>
-        <li><a href="#notifications">Notifications</a></li>
-        <li><a href="#logout">Logout</a></li>
-    </ul>
-</aside>
-
-<main>
-    <div id="content" class="content-container">
-        <!-- Dashboard Section -->
-        <section id="dashboard" class="content-section active">
-            <div class="houses">
-                <h2>My Homes</h2>
-                <div class="card-container-horizontal">
-                    <div th:each="home : ${myHomes}" class="card" th:onclick="'redirectToHouse(' + ${home.houseId} + ')'">
-                        <div class="profile-img">
-                            <img th:src="@{/images/house/{image}(image=${home.photo})}" alt="House Image">
-                        </div>
-                        <span th:text="'Your House number ' + ${home.door_no} + ' is in ' + ${home.building.area}"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="building-section">
-                <div class="searchbar">
-                    <form th:action="@{/tenant/{tenantId}/home(tenantId=${tenantId})}" method="get">
-                        <input type="text" name="keyword" placeholder="Search for any building">
-                        <button type="submit">Search</button>
-                    </form>
-                </div>
-
-                <div class="pagination-controls">
-                    <a th:if="${currentPage > 0}" th:href="@{/tenant/{tenantId}/home(tenantId=${tenantId}, page=${currentPage - 1}, sortField=${sortField}, sortOrder=${sortOrder}, keyword=${keyword})}">Previous</a>
-                    <a th:if="${currentPage < totalPages - 1}" th:href="@{/tenant/{tenantId}/home(tenantId=${tenantId}, page=${currentPage + 1}, sortField=${sortField}, sortOrder=${sortOrder}, keyword=${keyword})}">Next</a>
-                </div>
-
-                <div class="report-body">
-                    <div th:each="building : ${buildings}" class="building-card" th:onclick="'redirectToBuilding(' + ${building.buildingId} + ')'">
-                        <div class="building-image">
-                            <img th:src="@{/images/building/{image}(image=${building.photo})}" alt="Building Image">
-                        </div>
-                        <div class="building-details">
-                            <p>Building Name: <span th:text="${building.buildingName}"></span></p>
-                            <p>Demanded by <span th:text="${building.totalDemand}"></span> students</p>
-                            <p>Area: <span th:text="${building.area}"></span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Profile Section -->
-        <section id="profile" class="content-section">
-            <h2>Profile</h2>
-            <div class="user-details">
-                <div class="profile-img">
-                    <img th:src="@{/images/tenant/{image}(image=${tenant.photo})}" alt="Tenant Image">
-                </div>
-                <p th:text="'Name: ' + ${tenant.userName}"></p>
-                <p th:text="'Email: ' + ${tenant.email}"></p>
-            </div>
-        </section>
-
-        <!-- Account Section -->
-        <section id="account" class="content-section">
-            <h2>Account Settings</h2>
-            <form th:action="@{/tenant/updateAccount}" method="post">
-                <button type="submit">Save Settings</button>
-            </form>
-            <button onclick="deleteAccount()">Delete Account</button>
-        </section>
-
-        <!-- Notifications Section -->
-        <section id="notifications" class="content-section">
-            <h2>Notifications</h2>
-            <div class="notifications-list">
-                <div th:each="notification : ${notifications}" class="notification-item">
-                    <p th:text="${notification.message}"></p>
-                    <p th:text="${notification.date}"></p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Logout Section -->
-        <section id="logout" class="content-section">
-            <h2>Logout</h2>
-            <button onclick="confirmLogout()">Confirm Logout</button>
-        </section>
+    <div class="searchbar">
+        <form th:action="@{/tenant/{tenantId}/home(tenantId=${tenantId})}" method="get">
+            <input type="text" name="keyword" placeholder="Search for any building">
+            <button type="submit">Search</button>
+        </form>
     </div>
-</main>
+
+    <div class="pagination-controls">
+        <a th:if="${currentPage > 0}" th:href="@{/tenant/{tenantId}/home(tenantId=${tenantId}, page=${currentPage - 1}, sortField=${sortField}, sortOrder=${sortOrder}, keyword=${keyword})}">Previous</a>
+        <a th:if="${currentPage < totalPages - 1}" th:href="@{/tenant/{tenantId}/home(tenantId=${tenantId}, page=${currentPage + 1}, sortField=${sortField}, sortOrder=${sortOrder}, keyword=${keyword})}">Next</a>
+    </div>
+
+    <div id="home-listings-content">
+        <!-- Homes will be listed here -->
+        <div class="building-section">
+
+            <div class="report-body">
+                <div th:each="building : ${buildings}" class="building-card" th:onclick="'redirectToBuilding(' + ${building.buildingId} + ')'">
+                    <div class="building-image">
+                        <img th:src="@{/images/building/{image}(image=${building.photo})}" alt="Building Image">
+                    </div>
+                    <div class="building-details">
+                        <p>Building Name: <span th:text="${building.buildingName}"></span></p>
+                        <p>Demanded by <span th:text="${building.totalDemand}"></span> students</p>
+                        <p>Area: <span th:text="${building.area}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Add more homes here -->
+
+    </div>
+</section>
+
+<section id="rental-history" class="tabcontent">
+    <h2>Rental History</h2>
+    <div id="rental-history-content">
+        <!-- Rental history will be listed here -->
+
+        <h2>My Homes</h2>
+        <div class="card-container-horizontal">
+            <div th:each="home : ${myHomes}" class="card" th:onclick="'redirectToHouse(' + ${home.houseId} + ')'">
+                <div class="profile-img">
+                    <img th:src="@{/images/house/{image}(image=${home.photo})}" alt="House Image">
+                </div>
+                <span th:text="'Your House number ' + ${home.door_no} + ' is in ' + ${home.building.area}"></span>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+<section id="notifications" class="tabcontent">
+    <h2>Notifications</h2>
+    <div id="notifications-content">
+        <!-- Notifications will be listed here -->
+        <div class="notifications-list">
+            <div th:each="notification : ${notifications}" class="notification-item">
+                <p th:text="${notification.message}"></p>
+                <p th:text="${notification.date}"></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="settings" class="tabcontent">
+    <h2>Settings</h2>
+    <div id="settings-content">
+        <!-- Profile information will be displayed here -->
+        <h2>Profile</h2>
+        <div class="user-details">
+            <div class="profile-img">
+                <img th:src="@{/images/tenant/{image}(image=${tenant.photo})}" alt="Tenant Image">
+            </div>
+            <p th:text="'Name: ' + ${tenant.userName}"></p>
+            <p th:text="'Email: ' + ${tenant.email}"></p>
+        </div>
+
+        <!-- Change password form will be displayed here -->
+
+        <!-- Update profile form will be displayed here -->
+
+        <!-- Logout button will be displayed here -->
+
+        <!-- Delete account button will be displayed here -->
+        <form th:action="@{/tenant/updateAccount}" method="post">
+            <button type="submit">Save Settings</button>
+        </form>
+        <button onclick="deleteAccount()">Delete Account</button>
+
+        <h2>Logout</h2>
+        <button onclick="window.location.href = '/logout'">Logout</button>
+
+    </div>
+</section>
+
+<section id="payments" class="tabcontent">
+    <h2>Payments</h2>
+    <div id="payments-content">
+        <!-- Payment details will be listed here -->
+    </div>
+</section>
+
+<section id="support" class="tabcontent">
+    <h2>Support</h2>
+    <div id="support-content">
+        <!-- Support information will be listed here -->
+        <h2>Guava e-Hostels</h2>
+        <h3>Unsupported format</h3>
+        <P>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus repellendus eveniet deserunt animi culpa asperiores omnis natus, ullam molestiae? Tenetur voluptate error nostrum libero pariatur adipisci minima soluta aliquid amet.</P>
+    </div>
+</section>
 
 <script src="/js/tenant/tenant.js"></script>
 </body>

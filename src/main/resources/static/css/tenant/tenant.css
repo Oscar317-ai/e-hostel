@@ -1,203 +1,81 @@
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto', sans-serif;
-    background-color: rgb(175, 204, 175);
-    background-size: cover;
-    color: #E8E8E8; /* Light text color */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
 }
 
 header {
-    /* Background color */
-    background-color: rgba(255, 255, 255, 0.5); /* Colorless background with opacity */
-
-    /* Blur effect */
-    backdrop-filter: blur(8px); /* Adjust the blur radius as needed */
-    -webkit-backdrop-filter: blur(8px); /* For Safari */
-
-    /* Other styles */
-    color: #353333; /* Text color */
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    box-sizing: border-box;
+  background-color: #FF5A5F;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.user-info {
-    display: flex;
-    align-items: center;
+header h1 {
+  margin: 0;
+  font-weight: lighter;
 }
 
-.user-info button {
-    background-color: transparent;
-    border: none;
-    color: #483838;
-    cursor: pointer;
-    font-size: 20px;
-    margin-right: 10px;
+header .profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
-.user-info #director-username {
-    margin-right: 20px;
+nav {
+  background-color: #f8acae;
+  padding: 10px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
-.logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    white-space: nowrap; /* Prevent text wrapping */
+.tablink {
+  background-color: #f8acae;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.user-img {
-    display: flex;
-    align-items: center;
+.tablink:hover {
+  background-color: #e14e50;
 }
 
-.user-img img {
-    width: 40px; /* Adjust the size as needed */
-    height: 40px; /* Adjust the size as needed */
-    border-radius: 50%;
-    margin-left: 20px; /* Space between logo and user image */
+.container {
+  padding: 20px;
 }
 
-.logo span {
-    display: inline-block;
+.tabcontent {
+  display: none;
+  padding: 3px;
+  background-color: white;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.sidebar {
-    width: 250px;
-    height: 100%;
 
-    /* Background color */
-    background-color: rgba(43, 43, 43, 0.5); /* Colorless background with opacity */
-
-    /* Blur effect */
-    backdrop-filter: blur(8px); /* Adjust the blur radius as needed */
-    -webkit-backdrop-filter: blur(8px); /* For Safari */
-
-    /* Other styles */
-    position: fixed;
-    top: 60px;
-    left: -250px;
-    transition: left 0.3s ease;
-    z-index: 50;
-    overflow-y: auto;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+.button {
+  background-color: #FF5A5F;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.sidebar.active {
-    left: 0;
+.button:hover {
+  background-color: #e14e50;
 }
 
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-}
+/* lksdj */
 
-.sidebar ul li {
-    padding: 10px;
-}
-
-.sidebar ul li a {
-    text-decoration: none;
-    color: #E8E8E8;
-    display: block;
-}
-
-.sidebar ul li a:hover {
-    background-color: #424242;
-    border-radius: 4px;
-}
-
-main {
-    margin-top: 30px;
-    margin-left: 0;
-    padding: 20px;
-    transition: margin-left 0.3s ease;
-}
-
-main.active {
-    margin-left: 250px;
-}
-
-main #content {
-    padding: 20px;
-    background: linear-gradient(rgba(0, 0, 0, 0.055), rgba(5, 248, 106, 0.75));
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-img {
-    max-width: 150px;
-    border-radius: 50%;
-}
-
-.content-container {
-    margin-top: 60px;
-    margin-left: 70px;
-    padding: 20px;
-    width: calc(100% - 100px);
-}
-
-.content-section {
-    display: none;
-}
-
-.content-section.active {
-    display: block;
-}
-
-.card {
-    width: 300px;
-    padding: 20px;
-    margin: 20px;
-    border: 1px solid rgba(212, 213, 220, 0.579);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.profile-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-bottom: 10px;
-}
-
-.houses {
-    display: block;
-    border-radius: 10px;
-}
-
-.houses h2 {
-    color: white;
-}
-
-.houses .card-container-horizontal {
-    display: flex;
-    overflow-x: auto;
-    padding-bottom: 20px;
-}
-
-.houses .card-container-horizontal .card {
-    flex: 0 0 auto;
-    margin-right: 20px;
-    color: white;
-    border: 1px white solid;
-}
-
-.card img, .profile-img img {
-    max-width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+/* lets start with the home listings section */
 
 .building-section {
     display: block;
@@ -225,7 +103,7 @@ img {
 }
 
 .searchbar button {
-    background-color: #034706;
+    background-color: #22392e;
     color: white;
     border: 1px solid #034706;
     padding: 10px 20px;
@@ -233,6 +111,10 @@ img {
     border-bottom-right-radius: 20px;
     cursor: pointer;
     box-sizing: border-box;
+}
+
+.searchbar button:hover {
+    background-color: #075a0a;
 }
 
 .searchbar form {
@@ -273,20 +155,27 @@ img {
     flex-direction: column;
     align-items: center;
     border-radius: 10px;
-    width: 300px;
+    width: 400px;
+    height: 300px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 10px;
-    color: white;
+    color: rgb(17, 14, 14);
     border: 1px solid white;
     padding: 10px;
 }
 
 .building-card img {
     border: 1px solid rgba(212, 213, 220, 0.579);
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
     border-radius: 10px;
     width: auto;
     height: 80%;
 }
+
+/* notifications */
 
 .notifications-list {
     margin: 20px 0;
@@ -297,114 +186,39 @@ img {
     border-bottom: 1px solid #ccc;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+/* rental history */
 
-    .logo {
-        position: static;
-        transform: none;
-    }
-
-    .searchbar input {
-        max-width: 300px;
-    }
-
-    .searchbar button {
-        padding: 10px;
-    }
-
-    .pagination-controls a {
-        margin: 0 5px;
-    }
-
-    .sidebar {
-        width: 100%;
-        height: auto;
-        top: auto;
-        bottom: 0;
-        left: 0;
-        flex-direction: row;
-        overflow-x: auto;
-        overflow-y: hidden;
-        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        background-color: rgba(43, 43, 43, 1);
-    }
-
-    .sidebar ul {
-        display: flex;
-        justify-content: space-around;
-        width: 100%;
-    }
-
-    .sidebar ul li {
-        padding: 10px 5px;
-    }
-
-    .sidebar ul li a {
-        text-align: center;
-    }
-
-    main {
-        margin-top: 80px;
-        padding-bottom: 60px; /* Space for bottom nav */
-    }
-
-    .houses .card-container-horizontal {
-        flex-direction: column;
-    }
-
-    .houses .card-container-horizontal .card {
-        margin: 10px auto;
-    }
+.houses .card-container-horizontal {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 20px;
 }
 
-@media (max-width: 480px) {
-    .user-info button {
-        font-size: 16px;
-    }
+.houses .card-container-horizontal .card {
+    flex: 0 0 auto;
+    margin-right: 20px;
+    color: white;
+    border: 1px white solid;
+}
 
-    .building-card {
-                width: 100%; /* Ensure full width for building cards on very small screens */
-                margin: 10px 0; /* Adjust margin for spacing */
-            }
-
-            .houses .card-container-horizontal {
-                flex-direction: column; /* Ensure cards stack vertically on very small screens */
-                align-items: center; /* Center align for better appearance */
-            }
-
-    .user-info #director-username {
-        font-size: 14px;
-    }
-
-    .searchbar input {
-        max-width: 200px;
-    }
-
-    .pagination-controls {
-        flex-direction: column;
-    }
-
-    .pagination-controls a {
-        margin: 5px 0;
-    }
-
-    .building-card {
-        width: 90%;
-        margin: 10px auto;
-    }
-
-    .sidebar ul {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+.card img, .profile-img img {
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
 
-
+/* i am using this card for the houses */
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    width: 400px;
+    height: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    color: rgb(34, 30, 30);
+    border: 1px solid white;
+    padding: 10px;
 }

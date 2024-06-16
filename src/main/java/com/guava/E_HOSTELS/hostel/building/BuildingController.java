@@ -35,7 +35,7 @@ public class BuildingController {
     public String landlordGetBuilding(@PathVariable Long buildingId, Model model) {
         Building building = buildingService.findById(buildingId);
 
-        System.out.println("vacanthouses " +building.countVacantHouses());
+
         if (building != null) {
             House house = new House();
             House home = new House();
