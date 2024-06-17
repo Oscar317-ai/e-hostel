@@ -2,6 +2,7 @@ package com.guava.E_HOSTELS.users.tenant;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.guava.E_HOSTELS.hostel.house.House;
+import com.guava.E_HOSTELS.users.director.DirectorProfileVisibility;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,6 +39,12 @@ public class Tenant {
     @OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<House> houses;
+
+
+    // additional fields for notifications system testing
+    private String emailNotifications;
+    private String smsNotifications;
+    private TenantProfileVisibility tenantProfileVisibility;
 
     public Tenant(String userName, String firstName, String lastName, String password, String email) {
         this.firstName = firstName;

@@ -1,5 +1,6 @@
 package com.guava.E_HOSTELS.users.staff;
 
+import com.guava.E_HOSTELS.users.director.Director;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,35 @@ public class StaffService {
 
     public List<Staff> fetchAll() {
         return staffRepository.findAll();
+    }
+
+
+    public void updateStaff(Long staffId, Staff updatedStaff) {
+        Staff staffToUpdate = staffRepository.findById(staffId).orElse(null);
+        if (staffToUpdate != null) {
+            if (updatedStaff.getFirstName() != null) {
+                staffToUpdate.setFirstName(updatedStaff.getFirstName());
+            }
+            if (updatedStaff.getLastName() != null) {
+                staffToUpdate.setLastName(updatedStaff.getLastName());
+            }
+            if (updatedStaff.getPhoto() != null) {
+                staffToUpdate.setPhoto(updatedStaff.getPhoto());
+            }
+            if (updatedStaff.getUserName() != null) {
+                staffToUpdate.setUserName(updatedStaff.getUserName());
+            }
+
+            if (updatedStaff.getEmail() != null) {
+                staffToUpdate.setEmail(updatedStaff.getEmail());
+            }
+            if (updatedStaff.getPassword() != null) {
+                staffToUpdate.setPassword(updatedStaff.getPassword());
+            }
+
+
+            staffRepository.save(staffToUpdate);
+
+        }
     }
 }

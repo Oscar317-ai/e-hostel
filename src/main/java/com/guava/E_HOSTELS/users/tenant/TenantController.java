@@ -19,13 +19,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/tenant")
 public class TenantController {
+
+    public static String uploadDirectory = System.getProperty("user.dir")+ "/src/main/webapp/images";
 
     @Autowired
     private TenantService tenantService;
@@ -94,5 +103,57 @@ public class TenantController {
         }
 
         return "redirect:/tenant/" + tenantId + "/home";
+    }
+
+    @PostMapping("/update/{tenantId}")
+    public String updateTenantDetails(@PathVariable Long tenantId,
+                                     @ModelAttribute("tenant") Tenant updatedTenant,
+                                     @RequestParam("image") MultipartFile file) throws IOException {
+
+        String tenantFolder = uploadDirectory + "/tenant/"+ tenantId;
+        File directory = new File(tenantFolder);
+        //i first deleted the previous existing landlord's image folder
+        if (directory.exists()) {
+            deleteDirectory(directory);
+        }
+        // i then created a new folder
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        // Generate a unique numeric name for the file
+        String fileExtension = getFileExtension(file.getOriginalFilename());
+        String uniqueFileName = UUID.randomUUID().toString().replaceAll("-", "") + fileExtension;
+        Path fileNameAndPath = Paths.get(tenantFolder, uniqueFileName);
+        Files.write(fileNameAndPath, file.getBytes());
+
+        updatedTenant.setPhoto(tenantId+ "/"+ uniqueFileName);
+        tenantService.updateTenant(tenantId, updatedTenant);
+        return "redirect:/tenant/" + tenantId + "/home";
+    }
+
+
+    // Utility method to get file extension
+    private String getFileExtension(String fileName) {
+        int lastIndexOfDot = fileName.lastIndexOf(".");
+        if (lastIndexOfDot == -1) {
+            return ""; // empty extension
+        }
+        return fileName.substring(lastIndexOfDot);
+    }
+
+    // Utility method to recursively delete a directory and its contents
+    private void deleteDirectory(File directory) {
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    deleteDirectory(file);
+                } else {
+                    file.delete();
+                }
+            }
+        }
+        directory.delete();
     }
 }

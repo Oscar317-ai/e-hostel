@@ -1,136 +1,172 @@
-
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>LANDLORD Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="/css/landlord.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landlord Dashboard - Guava e-Hostels</title>
+    <link rel="stylesheet" href="/css/landlord.css">
 </head>
 <body>
 <header>
-    <div class="header-container">
-        <div class="header-left">
-            <button class="collapse-button" onclick="toggleSidebar()">
-                <span id="collapse-icon">&#9776;</span>
-            </button>
-            <span th:text="${landlord.userName}"></span>
-        </div>
-        <div class="header-right">
-            <span>GUAVA e-Hostels</span>
-        </div>
-    </div>
+    <p th:text="${landlord.userName}"></p>
+    <img th:src="@{/images/landlord/{image}(image=${landlord.photo})}" alt="landlord Image" class="profile-picture" >
 </header>
+<nav>
+    <button class="tablink" onclick="openSection(event, 'tenants')">Tenants</button>
+    <button class="tablink" onclick="openSection(event, 'Buildings')">My Homes</button>
+    <button class="tablink" onclick="openSection(event, 'notifications')">Notifications</button>
+    <button class="tablink" onclick="openSection(event, 'settings')">Settings</button>
+    <button class="tablink" onclick="openSection(event, 'earnings')">Earnings</button>
+    <button class="tablink" onclick="openSection(event, 'support')">Support</button>
+</nav>
 
-<div class="main-container">
-    <aside class="sidebar">
-        <ul class="nav-list">
-            <li><a href="#" onclick="showSection('dashboard')">Dashboard</a></li>
-            <li><a href="#" onclick="showSection('profile')">Profile</a></li>
-            <li><a href="#" onclick="showSection('account')">Account</a></li>
-            <li><a href="#" onclick="showSection('notifications')">Notifications</a></li>
-            <li><a href="#" onclick="showSection('logout')">Logout</a></li>
-        </ul>
-    </aside>
-
-    <div class="content-container">
-        <!-- Dashboard Section -->
-        <section id="dashboard" class="content-section active">
-            <!-- My Homes section -->
-            <div class="section">
-                <h2>My Buildings</h2>
-                <div class="card-container-horizontal">
-                    <div th:each="building : ${buildings}" class="card" th:onclick="'redirectToBuilding(' + ${building.buildingId} + ')'">
-                        <span th:text="${building.buildingName}">Building Name</span>
-                        <p th:text="'Area: ' + ${building.area}">Area</p>
-                        <p th:text="'Total Houses: ' + ${building.totalHouses}">Total Houses</p>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- Main Content Section -->
-            <div class="create-building">
-                <h1>Create a new building</h1>
-                <div class="form">
-                    <form th:action="@{/landlord/{landlordId}/buildings(landlordId=${landlord.landlordId})}" th:object="${building}" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="buildingName">Building Name:</label>
-                            <input type="text" id="buildingName" th:field="*{buildingName}" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="totalHouses">Total Houses:</label>
-                            <input type="number" id="totalHouses" th:field="*{totalHouses}" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="area">Area:</label>
-                            <input type="text" id="area" th:field="*{area}" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="distance">Distance from School(metres):</label>
-                            <input type="number" id="distance" th:field="*{distance}" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="image">Building Image:</label>
-                            <input type="file" id="image" name="image">
-                        </div>
-
-                        <button type="submit">Create Building</button>
-                    </form>
-                </div>
-            </div>
-
-        </section>
-
-        <!-- Profile Section -->
-        <section id="profile" class="content-section">
-            <h2>Profile</h2>
-            <div class="user-details">
-                <div class="profile-img">
-                    <img th:src="@{/images/landlord/{image}(image=${landlord.photo})}" alt="landlord Image">
-                </div>
-                <p th:text="'Name: ' + ${landlord.userName}"></p>
-                <p th:text="'Email: ' + ${landlord.email}"></p>
-                <!-- Add more user details here if needed -->
-            </div>
-        </section>
-
-        <!-- Account Section -->
-        <section id="account" class="content-section">
-            <h2>Account Settings</h2>
-            <form th:action="@{/landlord/updateAccount}" method="post">
-                <!-- Account settings form fields go here -->
-                <button type="submit">Save Settings</button>
-            </form>
-            <button onclick="deleteAccount()">Delete Account</button>
-        </section>
-
-        <!-- Notifications Section -->
-        <!-- Notifications Section -->
-        <section id="notifications" class="content-section">
-            <h2>Notifications</h2>
-            <div class="notifications-list">
-                <div th:each="notification : ${notifications}" class="notification-item">
-                    <p th:text="${notification.message}"></p>
-                    <p th:text="${notification.date}"></p>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- Logout Section -->
-        <section id="logout" class="content-section">
-            <h2>Logout</h2>
-            <button onclick="confirmLogout()">Confirm Logout</button>
-        </section>
+<section id="tenants" class="tabcontent">
+    <h2>Tenants</h2>
+    <div id="home-listings-content">
+        <!-- Homes will be listed here -->
     </div>
-</div>
+</section>
 
+<section id="Buildings" class="tabcontent">
+    <h2>My Buildings</h2>
+    <div id="rental-history-content">
+        <!-- Rental history will be listed here -->
 
+        <div class="section">
+            <div class="card-container-horizontal">
+                <div th:each="building : ${buildings}" class="card" th:onclick="'redirectToBuilding(' + ${building.buildingId} + ')'">
+                    <span th:text="${building.buildingName}">Building Name</span>
+                    <p th:text="'Area: ' + ${building.area}">Area</p>
+                    <p th:text="'Total Houses: ' + ${building.totalHouses}">Total Houses</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="create-building">
+            <h1>Create a new building</h1>
+            <div class="form">
+                <form th:action="@{/landlord/{landlordId}/buildings(landlordId=${landlord.landlordId})}" th:object="${building}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="buildingName">Building Name:</label>
+                        <input type="text" id="buildingName" th:field="*{buildingName}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="totalHouses">Total Houses:</label>
+                        <input type="number" id="totalHouses" th:field="*{totalHouses}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="area">Area:</label>
+                        <input type="text" id="area" th:field="*{area}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="distance">Distance from School(metres):</label>
+                        <input type="number" id="distance" th:field="*{distance}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image">Building Image:</label>
+                        <input type="file" id="image" name="image">
+                    </div>
+
+                    <button type="submit">Create Building</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="notifications" class="tabcontent">
+    <h2>Notifications</h2>
+    <div id="notifications-content">
+        <!-- Notifications will be listed here -->
+        <div class="notifications-list">
+            <div th:each="notification : ${notifications}" class="notification-item">
+                <p th:text="${notification.message}"></p>
+                <p th:text="${notification.date}"></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="settings" class="tabcontent">
+    <h2>Settings</h2>
+    <div id="settings-content" class="container">
+        <!-- Profile Settings -->
+        <div class="settings-card">
+            <h3>Profile Information</h3>
+            <div>
+                <img th:src="@{/images/landlord/{image}(image=${landlord.photo})}" alt="landlord Photo" class="profile-picture"/>
+                <form th:action="@{/landlord/update/{landlordId}(landlordId=${landlord.landlordId})}" method="post" enctype="multipart/form-data">
+                    <label for="profile-picture">Change Profile Picture</label>
+                    <input type="file" id="profile-picture" name="image">
+                    <label for="userName">User Name:</label>
+                    <input type="text" id="userName" name="userName" th:value="${landlord.userName}">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" th:value="${landlord.firstName}">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" th:value=" ${landlord.lastName}">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" th:value="${landlord.email}">
+                    <label for="password">New Password:</label>
+                    <input type="password" id="password" name="password">
+                    <button type="submit" class="button">Save Changes</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Account Settings -->
+        <div class="settings-card">
+            <h3>Account Settings</h3>
+            <button class="button" onclick="deleteAccount()">Delete Account</button>
+            <button class="button" onclick="confirmLogout()">Logout</button>
+        </div>
+
+        <!-- Notification Settings -->
+        <div class="settings-card">
+            <h3>Notification Settings</h3>
+            <form th:action="@{/landlord/updateNotifications}" method="post">
+                <label for="email-notifications">Email Notifications:</label>
+                <input type="checkbox" id="email-notifications" name="emailNotifications" th:checked="${landlord.emailNotifications}">
+                <label for="sms-notifications">SMS Notifications:</label>
+                <input type="checkbox" id="sms-notifications" name="smsNotifications" th:checked="${landlord.smsNotifications}">
+                <button type="submit" class="button">Save Changes</button>
+            </form>
+        </div>
+
+        <!-- Privacy Settings -->
+        <div class="settings-card">
+            <h3>Privacy Settings</h3>
+            <form th:action="@{/landlord/updatePrivacy}" method="post">
+                <label for="profile-visibility">Profile Visibility:</label>
+                <select id="profile-visibility" name="ProfileVisibility">
+                    <option value="public" th:selected="${landlord.landlordProfileVisibility == 'PUBLIC'}">Public</option>
+                    <option value="private" th:selected="${landlord.landlordProfileVisibility == 'PRIVATE'}">Private</option>
+                    <option value="friends" th:selected="${landlord.landlordProfileVisibility == 'TENANT'}">My tenants only</option>
+                </select>
+                <button type="submit" class="button">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section id="earnings" class="tabcontent">
+    <h2>Earnings</h2>
+    <div id="payments-content">
+        <!-- Payment details will be listed here -->
+    </div>
+</section>
+
+<section id="support" class="tabcontent">
+    <h2>Support</h2>
+    <div id="support-content">
+        <!-- Support information will be listed here -->
+    </div>
+</section>
 
 <script src="/js/landlord.js"></script>
 </body>
 </html>
-        

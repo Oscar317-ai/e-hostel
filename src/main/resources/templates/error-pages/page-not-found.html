@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invalid Page </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h1 {
+            font-size: 32px;
+            color: #ff5a5f;
+            margin-bottom: 20px;
+        }
+
+        .container p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .container .btn {
+            background-color: #ff5a5f;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+
+        .container .btn:hover {
+            background-color: #e04448;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Invalid Page</h1>
+    <p>We're sorry, this page is unavailable.</p>
+    <button class="btn" onclick="goBack()">Back</button>
+    <button class="btn" onclick="reportIssue()">Report Issue</button>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    function reportIssue() {
+        alert('Reporting issue...');
+        // Here you can add functionality to open a report issue form or redirect to a support page
+    }
+</script>
+</body>
+</html>

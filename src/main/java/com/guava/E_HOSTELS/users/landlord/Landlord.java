@@ -2,6 +2,7 @@ package com.guava.E_HOSTELS.users.landlord;
 
 
 import com.guava.E_HOSTELS.hostel.building.Building;
+import com.guava.E_HOSTELS.users.director.DirectorProfileVisibility;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,9 +33,13 @@ public class Landlord {
     @Column(unique = true, nullable = false)
     private String email;
 
-
     @OneToMany(mappedBy = "landlord", cascade = CascadeType.ALL)
     private List<Building> buildings;
+
+    // additional fields for notifications system testing
+    private String emailNotifications;
+    private String smsNotifications;
+    private LandlordProfileVisibility landlordProfileVisibility;
 
     public Landlord(String userName, String firstName, String lastName, String password, String email) {
         this.firstName = firstName;

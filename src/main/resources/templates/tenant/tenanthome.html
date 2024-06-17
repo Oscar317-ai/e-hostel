@@ -91,32 +91,62 @@
 
 <section id="settings" class="tabcontent">
     <h2>Settings</h2>
-    <div id="settings-content">
-        <!-- Profile information will be displayed here -->
-        <h2>Profile</h2>
-        <div class="user-details">
-            <div class="profile-img">
-                <img th:src="@{/images/tenant/{image}(image=${tenant.photo})}" alt="Tenant Image">
+    <div id="settings-content" class="container">
+        <!-- Profile Settings -->
+        <div class="settings-card">
+            <h3>Profile Information</h3>
+            <div>
+                <img th:src="@{/images/landlord/{image}(image=${tenant.photo})}" alt="tenant Photo" class="profile-picture"/>
+                <form th:action="@{/tenant/update/{tenantId}(tenantId=${tenant.tenantId})}" method="post" enctype="multipart/form-data">
+                    <label for="profile-picture">Change Profile Picture</label>
+                    <input type="file" id="profile-picture" name="image">
+                    <label for="userName">User Name:</label>
+                    <input type="text" id="userName" name="userName" th:value="${tenant.userName}">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" th:value="${tenant.firstName}">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" th:value=" ${tenant.lastName}">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" th:value="${tenant.email}">
+                    <label for="password">New Password:</label>
+                    <input type="password" id="password" name="password">
+                    <button type="submit" class="button">Save Changes</button>
+                </form>
             </div>
-            <p th:text="'Name: ' + ${tenant.userName}"></p>
-            <p th:text="'Email: ' + ${tenant.email}"></p>
         </div>
 
-        <!-- Change password form will be displayed here -->
+        <!-- Account Settings -->
+        <div class="settings-card">
+            <h3>Account Settings</h3>
+            <button class="button" onclick="deleteAccount()">Delete Account</button>
+            <button class="button" onclick="confirmLogout()">Logout</button>
+        </div>
 
-        <!-- Update profile form will be displayed here -->
+        <!-- Notification Settings -->
+        <div class="settings-card">
+            <h3>Notification Settings</h3>
+            <form th:action="@{/tenant/updateNotifications}" method="post">
+                <label for="email-notifications">Email Notifications:</label>
+                <input type="checkbox" id="email-notifications" name="emailNotifications" th:checked="${tenant.emailNotifications}">
+                <label for="sms-notifications">SMS Notifications:</label>
+                <input type="checkbox" id="sms-notifications" name="smsNotifications" th:checked="${tenant.smsNotifications}">
+                <button type="submit" class="button">Save Changes</button>
+            </form>
+        </div>
 
-        <!-- Logout button will be displayed here -->
-
-        <!-- Delete account button will be displayed here -->
-        <form th:action="@{/tenant/updateAccount}" method="post">
-            <button type="submit">Save Settings</button>
-        </form>
-        <button onclick="deleteAccount()">Delete Account</button>
-
-        <h2>Logout</h2>
-        <button onclick="window.location.href = '/logout'">Logout</button>
-
+        <!-- Privacy Settings -->
+        <div class="settings-card">
+            <h3>Privacy Settings</h3>
+            <form th:action="@{/tenant/updatePrivacy}" method="post">
+                <label for="profile-visibility">Profile Visibility:</label>
+                <select id="profile-visibility" name="directorProfileVisibility">
+                    <option value="public" th:selected="${tenant.tenantProfileVisibility == 'PUBLIC'}">Public</option>
+                    <option value="private" th:selected="${tenant.tenantProfileVisibility == 'PRIVATE'}">Private</option>
+                    <option value="friends" th:selected="${tenant.tenantProfileVisibility == 'NEIGHBOUR'}">My Neighbours only</option>
+                </select>
+                <button type="submit" class="button">Save Changes</button>
+            </form>
+        </div>
     </div>
 </section>
 

@@ -1,5 +1,6 @@
 package com.guava.E_HOSTELS.users.landlord;
 
+import com.guava.E_HOSTELS.users.director.Director;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -47,5 +48,34 @@ public class LandlordService {
 
     public Landlord findByemail(String email) {
         return landlordRepository.findByemail(email);
+    }
+
+
+    public void updateLandlord(Long landlordId, Landlord updatedLandord) {
+        Landlord landlordToUpdate = landlordRepository.findById(landlordId).orElse(null);
+        if (landlordToUpdate != null) {
+            if (updatedLandord.getFirstName() != null) {
+                landlordToUpdate.setFirstName(updatedLandord.getFirstName());
+            }
+            if (updatedLandord.getLastName() != null) {
+                landlordToUpdate.setLastName(updatedLandord.getLastName());
+            }
+            if (updatedLandord.getPhoto() != null) {
+                landlordToUpdate.setPhoto(updatedLandord.getPhoto());
+            }
+            if (updatedLandord.getUserName() != null) {
+                landlordToUpdate.setUserName(updatedLandord.getUserName());
+            }
+
+            if (updatedLandord.getEmail() != null) {
+                landlordToUpdate.setEmail(updatedLandord.getEmail());
+            }
+            if (updatedLandord.getPassword() != null) {
+                landlordToUpdate.setPassword(updatedLandord.getPassword());
+            }
+
+            landlordRepository.save(landlordToUpdate);
+
+        }
     }
 }

@@ -27,9 +27,16 @@ public class Director {
     private String password;
     private String photo;
 
-
     @Column(unique = true, nullable = false)
     private String email;
+
+    // additional fields for notifications system testing
+
+    private String emailNotifications;
+    private String smsNotifications;
+    private DirectorProfileVisibility directorProfileVisibility;
+
+
 
 
     public Director(String userName, String firstName, String lastName, String password, String email) {

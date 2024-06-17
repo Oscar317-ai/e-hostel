@@ -1,32 +1,29 @@
-// tenant.js
-function toggleSidebar() {
-    const sidebar = document.querySelector('.sidebar');
-    const mainContainer = document.querySelector('.content-container');
-    if (sidebar.classList.contains('collapsed')) {
-        sidebar.classList.remove('collapsed');
-        mainContainer.style.marginLeft = '150px'; // Adjust the margin to match the sidebar width
-    } else {
-        sidebar.classList.add('collapsed');
-        mainContainer.style.marginLeft = '0';
-    }
-}
+document.addEventListener('DOMContentLoaded', function() {
+    // Display the first tab content by default
+    document.getElementById("tenants").style.display = "block";
 
-
-document.addEventListener('DOMContentLoaded', (event) => {
-    // Initially show the dashboard section
-    showSection('dashboard');
+    // Other data initialization code can be added here
 });
 
-function showSection(sectionId) {
-    // Hide all content sections
-    let sections = document.querySelectorAll('.content-section');
-    sections.forEach(section => {
-        section.classList.remove('active');
-    });
+function openSection(evt, sectionName) {
+    // Hide all tab contents
+    const tabcontents = document.getElementsByClassName("tabcontent");
+    for (let i = 0; i < tabcontents.length; i++) {
+        tabcontents[i].style.display = "none";
+    }
 
-    // Show the selected section
-    document.getElementById(sectionId).classList.add('active');
+    // Remove the background color of all tablinks
+    const tablinks = document.getElementsByClassName("tablink");
+    for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.backgroundColor = "";
+    }
+
+    // Show the current tab content and add an "active" class to the clicked button
+    document.getElementById(sectionName).style.display = "block";
+    evt.currentTarget.style.backgroundColor = "#e14e50";
 }
+
+// tenant.js
 
 function confirmLogout() {
     if (confirm("Are you sure you want to logout?")) {

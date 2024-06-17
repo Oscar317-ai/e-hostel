@@ -1,110 +1,86 @@
-/* landlord.css */
-
-/* Global styles */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: #343a40;
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
 }
 
-/* CSS for fixed header */
 header {
-    color: white;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000; /* Adjust the z-index as needed */
-    background-color: #0c0b6a;
-    border-bottom: 1px solid #727171;
+  background-color: #FF5A5F;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Adjust the margin of the content container to accommodate the fixed header */
-.content-container {
-    margin-top: 60px; /* Adjust the value based on the height of your header */
+header h1 {
+  margin: 0;
+  font-weight: lighter;
 }
 
-/* Ensure the sidebar appears below the fixed header */
-.sidebar {
-    margin-top: 60px; /* Adjust the value based on the height of your header */
+header .profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+nav {
+  background-color: #f8acae;
+  padding: 10px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.tablink {
+  background-color: #f8acae;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tablink:hover {
+  background-color: #e14e50;
+}
+
+.container {
+  padding: 20px;
+}
+
+.tabcontent {
+  display: none;
+  padding: 20px;
+  background-color: white;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
+.button {
+  background-color: #FF5A5F;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-
-.header-left span, .footer-container p {
-    font-size: 18px;
-        font-weight: bold;
+.button:hover {
+  background-color: #e14e50;
 }
 
-.header-right  {
-   font-size: 18px;
-       font-weight: bold;
-}
-
-
-
-.main-container {
-    display: flex;
-    flex: 1;
-}
-
-
-.nav-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-.nav-list li {
-    padding: 15px 20px;
-}
-
-.nav-list li a {
-    color: white;
-    text-decoration: none;
-    display: block;
-}
-
-.nav-list li a:hover {
-    background-color: #6444ae;
-}
-
-.content-container {
-    margin-left: 200px;
-    padding: 20px;
-    width: calc(100% - 200px);
-}
-
-.content-section {
-    display: none;
-}
-
-.content-section.active {
-    display: block;
-}
-
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-
-}
+/* my homes section styles */
 
 .section {
     color: aliceblue;
 }
 
 .card {
-    color: white;
+    color: rgb(27, 23, 23);
     width: 300px;
     padding: 20px;
     margin: 20px;
@@ -128,41 +104,18 @@ header {
 }
 
 
-.create-building {
-    /* Set maximum width for the container */
-    max-width: 600px;
-    /* Center the container horizontally */
-    margin: 0 auto;
-    /* Add padding inside the container */
-    padding: 20px;
-    /* Add border to the container */
-    border: 1px solid #ccc;
-    /* Round the corners of the container */
-    border-radius: 8px;
-    /* Set background color for the container */
-    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent to show blur effect */
-    /* Add a box shadow for a card-like appearance */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    /* Add backdrop filter to blur the background */
-    backdrop-filter: blur(50px);
-}
-
-.create-building h1 {
-    /* Center the text */
-    text-align: center;
-    /* Add margin below the heading */
-    margin-bottom: 20px;
-    /* Set font size for the heading */
-    font-size: 24px;
-    /* Set color for the heading text */
-    color: #296e9d;
-}
-
-.create-building .form {
-    /* Use flexbox to arrange elements in a column */
+.card-container-horizontal {
     display: flex;
-    flex-direction: column;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    padding-bottom: 20px; /* Add some bottom padding to avoid cutting off the last card */
 }
+
+.card-container-horizontal .card {
+    flex: 0 0 auto; /* Maintain the fixed width for each card */
+    margin-right: 20px; /* Add some space between cards */
+}
+
+
 
 .create-building .form-group {
     /* Add margin below each form group */
@@ -219,96 +172,105 @@ header {
     background-color: #218838;
 }
 
-@media screen and (max-width: 768px) {
-    /* Adjust for smaller screens, display one card per row */
-    .building-card {
-        width: calc(100% - 40px); /* Take up full width with padding */
-        margin: 20px; /* Add margin to separate cards */
-    }
+
+/* Settings tab specific styling */
+#settings-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-
-@media screen and (min-width: 992px) {
-    /* Adjust for larger screens, display three cards per row */
-    .building-card {
-        width: calc(33.333% - 20px); /* Adjust width for three cards */
-    }
+.settings-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-@media screen and (min-width: 1200px) {
-    /* Adjust for extra-large screens, display four cards per row */
-    .building-card {
-        width: calc(25% - 20px); /* Adjust width for four cards */
-    }
+.settings-card h3 {
+  margin-top: 0;
 }
 
-
-
-.pagination-controls {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
+.settings-card label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
 }
 
-.pagination-controls a {
-    margin: 0 10px;
-    color: #007bff;
-    text-decoration: none;
+.settings-card input[type="text"],
+.settings-card input[type="email"],
+.settings-card input[type="password"],
+.settings-card input[type="file"],
+.settings-card select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f7f7f7;
+  color: #333;
 }
 
-.pagination-controls a:hover {
-    text-decoration: underline;
+.settings-card input[type="text"]::placeholder,
+.settings-card input[type="email"]::placeholder,
+.settings-card input[type="password"]::placeholder {
+  color: #bbb;
 }
 
-.notifications-list {
-    margin: 20px 0;
+.settings-card button {
+  background-color: #FF5A5F;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  display: block;
 }
 
-.notification-item {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-}
-/* Add this CSS to your existing CSS file */
-
-.card-container-horizontal {
-    display: flex;
-    overflow-x: auto; /* Enable horizontal scrolling */
-    padding-bottom: 20px; /* Add some bottom padding to avoid cutting off the last card */
+.settings-card button:hover {
+  background-color: #e14e50;
 }
 
-.card-container-horizontal .card {
-    flex: 0 0 auto; /* Maintain the fixed width for each card */
-    margin-right: 20px; /* Add some space between cards */
+.settings-card .button {
+  margin-top: 20px;
 }
 
-.report-body {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between; /* Adjust card spacing */
+.profile-picture {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: block;
+  margin-bottom: 20px;
 }
 
-.building-card {
-    width: calc(50% - 20px); /* Adjust the width to fit two cards per row with spacing */
-    margin-bottom: 20px; /* Add some bottom margin to separate rows */
+.settings-card form {
+  display: flex;
+  flex-direction: column;
 }
 
-
-.sidebar {
-    width: 150px; /* Adjusted width */
-    background-color: #0a2052;
-    color: white;
-    height: 100%;
-    position: fixed;
-    transition: width 0.3s; /* Add transition for smooth animation */
+.settings-card form label {
+  margin-bottom: 5px;
 }
 
-.sidebar.collapsed {
-    width: 0px; /* Adjusted collapsed width */
+.settings-card form input,
+.settings-card form select {
+  margin-bottom: 10px;
 }
 
-.main-container {
-    display: flex;
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .tablink {
     flex: 1;
-    transition: margin-left 0.3s; /* Add transition for smooth animation */
-}
+  }
 
+  .settings-card {
+    padding: 15px;
+  }
+
+  .settings-card input,
+  .settings-card button {
+    width: 100%;
+  }
+}

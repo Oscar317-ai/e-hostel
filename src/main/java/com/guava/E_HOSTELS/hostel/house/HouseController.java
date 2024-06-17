@@ -106,7 +106,7 @@ public class HouseController {
 
 
     @PostMapping("/rent/{houseId}")
-    public ResponseEntity<Map<String, Boolean>> rentHouse(@PathVariable Long houseId, @RequestBody Map<String, String> request) {
+    public String rentHouse(@PathVariable Long houseId, @RequestBody Map<String, String> request) {
         // Get the current tenant's email
 
        String userEmail = successHandler.getUserEmail();
@@ -127,7 +127,7 @@ public class HouseController {
             if (!paymentResponse.getBody().equals("success")) {
                 // Handle payment failure (e.g., return error message)
                 System.out.println("payment failed early ");
-                return ResponseEntity.badRequest().body(Collections.singletonMap("success", false));
+                return "redirect: /payment-failed-error";
             }
 
 
@@ -140,12 +140,12 @@ public class HouseController {
                 house.setTenant(tenant);
                 house.setHouseStatus(HouseStatus.OCCUPIED);
                 houseService.save(house);
-                return ResponseEntity.ok(Collections.singletonMap("success", true));
+                return "redirect: /page-not-found";
             }
 
 
         }
-        return ResponseEntity.ok(Collections.singletonMap("success", false));
+        return "redirect:/building/landlords-house-view/" + houseId;
     }
 
 

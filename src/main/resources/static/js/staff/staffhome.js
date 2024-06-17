@@ -1,35 +1,58 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Event listener for sidebar toggle button
-    document.getElementById('toggle-sidebar').addEventListener('click', function() {
-        document.getElementById('sidebar').classList.toggle('active');
-        document.querySelector('main').classList.toggle('active');
-    });
+document.addEventListener('DOMContentLoaded', function() {
+    // Display the first tab content by default
+    document.getElementById("tasks").style.display = "block";
 
-    // Event listener for logout button
-    document.getElementById('logout-btn').addEventListener('click', function() {
-        // Add logout functionality here
-        alert("Logout functionality will be implemented here.");
-    });
 
-    // Load default content (My Profile) when the page loads
-    loadContent('profile');
 
-    // Event listeners for sidebar links
-    document.querySelectorAll('#sidebar ul li a').forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            let tab = this.getAttribute('href').substring(1);
-            loadContent(tab);
-        });
-    });
+    // Other data initialization code can be added here
 });
 
-// Function to load content dynamically based on tab
-function loadContent(tab) {
-    document.querySelectorAll('section').forEach(section => {
-        section.classList.add('hidden');
-    });
-    document.getElementById(tab).classList.remove('hidden');
+function openSection(evt, sectionName) {
+    // Hide all tab contents
+    const tabcontents = document.getElementsByClassName("tabcontent");
+    for (let i = 0; i < tabcontents.length; i++) {
+        tabcontents[i].style.display = "none";
+    }
+
+    // Remove the background color of all tablinks
+    const tablinks = document.getElementsByClassName("tablink");
+    for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.backgroundColor = "";
+    }
+
+    // Show the current tab content and add an "active" class to the clicked button
+    document.getElementById(sectionName).style.display = "block";
+    evt.currentTarget.style.backgroundColor = "#e14e50";
 }
 
-// Add more JavaScript functionalities as needed
+// tenant.js
+
+function confirmLogout() {
+    if (confirm("Are you sure you want to logout?")) {
+        // Redirect to logout URL
+        window.location.href = "/logout";
+    }
+}
+
+function deleteAccount() {
+    if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+        // Call the delete account URL
+        fetch('/delete-account', { method: 'DELETE' })
+            .then(response => {
+                if (response.ok) {
+                    alert("Account deleted successfully.");
+                    window.location.href = "/logout";
+                } else {
+                    alert("Failed to delete account.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("An error occurred while deleting your account.");
+            });
+    }
+}
+function redirectToBuilding(buildingId) {
+  window.location.href = "/building/landlords-building-view/" + buildingId;
+
+}

@@ -4,6 +4,7 @@ import com.guava.E_HOSTELS.hostel.building.Building;
 import com.guava.E_HOSTELS.hostel.building.BuildingService;
 import com.guava.E_HOSTELS.hostel.house.House;
 import com.guava.E_HOSTELS.hostel.house.HouseService;
+import com.guava.E_HOSTELS.users.director.Director;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -97,7 +98,32 @@ public class LandlordController {
         return "redirect:/landlord/" + landlordId + "/home";
     }
 
+    @PostMapping("/update/{landlordId}")
+    public String updateLandlordDetails(@PathVariable Long landlordId,
+                                        @ModelAttribute("director") Landlord updatedLandord,
+                                        @RequestParam("image") MultipartFile file) throws IOException {
 
+        String landlordFolder = uploadDirectory + "/landlord/"+ landlordId;
+        File directory = new File(landlordFolder);
+        //i first deleted the previous existing landlord's image folder
+        if (directory.exists()) {
+            deleteDirectory(directory);
+        }
+        // i then created a new folder
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        // Generate a unique numeric name for the file
+        String fileExtension = getFileExtension(file.getOriginalFilename());
+        String uniqueFileName = UUID.randomUUID().toString().replaceAll("-", "") + fileExtension;
+        Path fileNameAndPath = Paths.get(landlordFolder, uniqueFileName);
+        Files.write(fileNameAndPath, file.getBytes());
+
+        updatedLandord.setPhoto(landlordId+ "/"+ uniqueFileName);
+        landlordService.updateLandlord(landlordId, updatedLandord);
+        return "redirect:/landlord/" + landlordId + "/home";
+    }
 
 
 

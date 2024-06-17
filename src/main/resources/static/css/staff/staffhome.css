@@ -1,138 +1,185 @@
-/* Reset default browser styles */
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
 }
 
-/* Header styles */
 header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
+  background-color: #FF5A5F;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+  font-weight: lighter;
+}
+
+header .profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+nav {
+  background-color: #f8acae;
+  padding: 10px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.tablink {
+  background-color: #f8acae;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tablink:hover {
+  background-color: #e14e50;
+}
+
+.container {
+  padding: 20px;
+}
+
+.tabcontent {
+  display: none;
+  padding: 20px;
+  background-color: white;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  background-color: white;
+  padding: 20px;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.button {
+  background-color: #FF5A5F;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #e14e50;
+}
+
+
+
+/* Settings tab specific styling */
+#settings-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+.card label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.card input[type="text"],
+.card input[type="email"],
+.card input[type="password"],
+.card input[type="file"],
+.card select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+.card input[type="text"]::placeholder,
+.card input[type="email"]::placeholder,
+.card input[type="password"]::placeholder {
+  color: #bbb;
+}
+
+.card button {
+  background-color: #FF5A5F;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  display: block;
+}
+
+.card button:hover {
+  background-color: #e14e50;
+}
+
+.card .button {
+  margin-top: 20px;
+}
+
+.profile-picture {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.card form label {
+  margin-bottom: 5px;
+}
+
+.card form input,
+.card form select {
+  margin-bottom: 10px;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .tablink {
+    flex: 1;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .card input,
+  .card button {
     width: 100%;
-    top: 0;
-    z-index: 100;
+  }
 }
-
-.logo {
-    display: flex;
-    align-items: center;
-}
-
-.logo span {
-    font-weight: bold;
-    font-size: 20px;
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-}
-
-.user-info button {
-    background-color: transparent;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    font-size: 20px;
-    margin-right: 10px;
-}
-
-.user-info #director-username {
-    margin-right: 20px;
-}
-
-/* Sidebar styles */
-aside {
-    width: 250px;
-    height: 100%;
-    background-color: #f4f4f4;
-    position: fixed;
-    top: 60px; /* Adjust to match header height */
-    left: -250px;
-    transition: left 0.3s ease;
-    z-index: 50;
-    overflow-y: auto;
-}
-
-aside.active {
-    left: 0;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-ul li {
-    padding: 10px;
-}
-
-ul li a {
-    text-decoration: none;
-    color: #333;
-}
-
-ul li a:hover {
-    background-color: #ddd;
-}
-
-/* Main content styles */
-main {
-    margin-top: 60px; /* Adjust to match header height */
-    margin-left: 0; /* Adjust according to sidebar visibility */
-    padding: 20px;
-    transition: margin-left 0.3s ease;
-}
-
-main.active {
-    margin-left: 250px;
-}
-
-main #content {
-    padding: 20px;
-    background: #fff;
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.hidden {
-    display: none;
-}
-
-img {
-    max-width: 150px;
-    border-radius: 50%;
-}
-
-/* Table styles */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-table, th, td {
-    border: 1px solid #ddd;
-}
-
-th, td {
-    padding: 8px;
-    text-align: left;
-}
-
-th {
-    background-color: #f4f4f4;
-}
-
-.pagination {
-    display: flex;
-    justify-content: space-between;
-}
-
-/* Additional CSS as needed */

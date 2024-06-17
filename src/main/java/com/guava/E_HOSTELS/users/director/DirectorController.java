@@ -12,17 +12,23 @@ import com.guava.E_HOSTELS.users.tenant.Tenant;
 import com.guava.E_HOSTELS.users.tenant.TenantService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 // DirectorController.java
 @Controller
 @RequestMapping("/director")
 public class DirectorController {
 
+    public static String uploadDirectory = System.getProperty("user.dir")+ "/src/main/webapp/images";
 
     private final DirectorService directorService;
     private final StaffService staffService;
@@ -60,6 +66,61 @@ public class DirectorController {
         return "/director/directorhome";
     }
 
+
+    @PostMapping("/update/{directorId}")
+    public String updateDirectorDetails(@PathVariable Long directorId,
+                                     @ModelAttribute("director") Director updatedDirector,
+                                     @RequestParam("image") MultipartFile file) throws IOException {
+
+        String houseFolder = uploadDirectory + "/director/"+ directorId;
+        File directory = new File(houseFolder);
+        //i first deleted the previous existing landlord's image folder
+        if (directory.exists()) {
+            deleteDirectory(directory);
+        }
+        // i then created a new folder
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        // Generate a unique numeric name for the file
+        String fileExtension = getFileExtension(file.getOriginalFilename());
+        String uniqueFileName = UUID.randomUUID().toString().replaceAll("-", "") + fileExtension;
+        Path fileNameAndPath = Paths.get(houseFolder, uniqueFileName);
+        Files.write(fileNameAndPath, file.getBytes());
+
+        updatedDirector.setPhoto(directorId+ "/"+ uniqueFileName);
+        directorService.updateDirector(directorId, updatedDirector);
+        return "redirect:/director/" + directorId + "/home";
+    }
+
     // Add more endpoints for CRUD operations as needed
+
+
+
+
+    // Utility method to get file extension
+    private String getFileExtension(String fileName) {
+        int lastIndexOfDot = fileName.lastIndexOf(".");
+        if (lastIndexOfDot == -1) {
+            return ""; // empty extension
+        }
+        return fileName.substring(lastIndexOfDot);
+    }
+
+    // Utility method to recursively delete a directory and its contents
+    private void deleteDirectory(File directory) {
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    deleteDirectory(file);
+                } else {
+                    file.delete();
+                }
+            }
+        }
+        directory.delete();
+    }
 }
 

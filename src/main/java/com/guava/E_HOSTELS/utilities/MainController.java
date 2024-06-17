@@ -70,6 +70,15 @@ public class MainController {
         return "/director/directorRegister";
     }
 
+    @GetMapping("/payment-failed-error")
+    public String paymentErrorPage() {
+        return "/error-pages/payment-failed";
+    }
+
+    @GetMapping("/page-not-found")
+    public String PageNotFound() {
+        return "/error-pages/page-not-found";
+    }
 
 
 
@@ -250,10 +259,5 @@ public class MainController {
         }
         directory.delete();
     }
-
-//    @GetMapping("/error")
-//    public String errorPage() {
-//        return "error";
-//    }
 
 }

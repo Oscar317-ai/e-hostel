@@ -3,43 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DIRECTOR HOME</title>
+    <title>Staff Dashboard - Guava e-Hostels</title>
     <link rel="stylesheet" href="/css/staff/staffhome.css">
 </head>
 <body>
 <header>
-    <div class="user-info">
-        <button id="toggle-sidebar">&#9776;</button>
-        <span id="director-username" th:text="${staff.userName}">Staff's Username</span>
-        <button id="logout-btn">Logout</button>
-    </div>
-    <div >
-        <span>GUAVA e-Hostels</span>
-    </div>
+    <p> <span th:text="${staff.userName}"></span></p>
+    <img th:src="@{/images/staff/{image}(image=${staff.photo})}" alt="staff Photo" class="profile-picture" />
 </header>
-<aside id="sidebar">
-    <ul>
-        <li><a href="#profile">My Profile</a></li>
-        <li><a href="#tenants">Tenants</a></li>
-        <li><a href="#landlords">Landlords</a></li>
-        <li><a href="#staff">Staff</a></li>
-        <li><a href="#buildings">Buildings</a></li>
-        <li><a href="#houses">Houses</a></li>
-        <li><a href="/logout">Logout</a></li>
-    </ul>
-</aside>
-<main>
-    <div id="content">
-        <section id="profile">
-            <h2>Staff's Profile</h2>
-            <div>
-                <img th:src="@{/images/staff/{image}(image=${staff.photo})}" alt="staff Photo" />
-                <p>Name: <span th:text="${staff.firstName} + ' ' + ${staff.lastName}"></span></p>
-                <p>Email: <span th:text="${staff.email}"></span></p>
-            </div>
-        </section>
+<nav>
+    <button class="tablink" onclick="openSection(event, 'tasks')">Tasks</button>
+    <button class="tablink" onclick="openSection(event, 'clients')">Clients</button>
+    <button class="tablink" onclick="openSection(event, 'notifications')">Notifications</button>
+    <button class="tablink" onclick="openSection(event, 'settings')">Settings</button>
+    <button class="tablink" onclick="openSection(event, 'earnings')">Earnings</button>
+    <button class="tablink" onclick="openSection(event, 'support')">Support</button>
+</nav>
 
-        <section id="tenants" class="hidden">
+<section id="tasks" class="tabcontent">
+    <h2>Tasks</h2>
+    <div id="home-listings-content">
+        <!-- Homes will be listed here -->
+    </div>
+</section>
+
+<section id="clients" class="tabcontent">
+    <h2>All clients</h2>
+    <div id="rental-history-content">
+        <!-- Rental history will be listed here -->
+
+        <div id="tenants-content" class="hidden">
+
             <h2>Tenants</h2>
             <input type="text" id="tenantSearch" placeholder="Search tenants...">
             <table>
@@ -69,9 +63,10 @@
                 <button class="prev-page">Previous</button>
                 <button class="next-page">Next</button>
             </div>
-        </section>
+        </div>
 
-        <section id="landlords" class="hidden">
+
+        <div id="landlords" class="hidden">
             <h2>Landlords</h2>
             <input type="text" id="landlordSearch" placeholder="Search landlords...">
             <table>
@@ -99,39 +94,9 @@
                 <button class="prev-page">Previous</button>
                 <button class="next-page">Next</button>
             </div>
-        </section>
+        </div>
 
-        <section id="staff" class="hidden">
-            <h2>Staff</h2>
-            <input type="text" id="staffSearch" placeholder="Search staff...">
-            <table>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="staf : ${staffs}">
-                    <td th:text="${staf.staffId}"></td>
-                    <td th:text="${staf.firstName} + ' ' + ${staf.lastName}"></td>
-                    <td th:text="${staf.email}"></td>
-                    <td>
-                        <button th:attr="data-id=${staff.staffId}" class="update-btn">Update</button>
-                        <button th:attr="data-id=${staff.staffId}" class="delete-btn">Delete</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="pagination">
-                <button class="prev-page">Previous</button>
-                <button class="next-page">Next</button>
-            </div>
-        </section>
-
-        <section id="buildings" class="hidden">
+        <div id="buildings" class="hidden">
             <h2>Buildings</h2>
             <input type="text" id="buildingSearch" placeholder="Search buildings...">
             <table>
@@ -161,9 +126,9 @@
                 <button class="prev-page">Previous</button>
                 <button class="next-page">Next</button>
             </div>
-        </section>
+        </div>
 
-        <section id="houses" class="hidden">
+        <div id="houses" class="hidden">
             <h2>Houses</h2>
             <input type="text" id="houseSearch" placeholder="Search houses...">
             <table>
@@ -193,9 +158,92 @@
                 <button class="prev-page">Previous</button>
                 <button class="next-page">Next</button>
             </div>
-        </section>
+        </div>
     </div>
-</main>
+</section>
+
+<section id="notifications" class="tabcontent">
+    <h2>Notifications</h2>
+    <div id="notifications-content">
+        <!-- Notifications will be listed here -->
+    </div>
+</section>
+
+<section id="settings" class="tabcontent">
+    <h2>Settings</h2>
+    <div id="settings-content" class="container">
+        <!-- Profile Settings -->
+        <div class="card">
+            <h3>Profile Information</h3>
+            <div>
+                <img th:src="@{/images/staff/{image}(image=${staff.photo})}" alt="staff Photo" class="profile-picture"/>
+                <form th:action="@{/staff/update/{staffId}(staffId=${staff.staffId})}" method="post" enctype="multipart/form-data">
+                    <label for="profile-picture">Change Profile Picture</label>
+                    <input type="file" id="profile-picture" name="image">
+                    <label for="userName">User Name:</label>
+                    <input type="text" id="userName" name="userName" th:value="${staff.userName}">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" th:value="${staff.firstName}">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" th:value=" ${staff.lastName}">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" th:value="${staff.email}">
+                    <label for="password">New Password:</label>
+                    <input type="password" id="password" name="password">
+                    <button type="submit" class="button">Save Changes</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Account Settings -->
+        <div class="card">
+            <h3>Account Settings</h3>
+            <button class="button" onclick="deleteAccount()">Delete Account</button>
+            <button class="button" onclick="confirmLogout()">Logout</button>
+        </div>
+
+        <!-- Notification Settings -->
+        <div class="card">
+            <h3>Notification Settings</h3>
+            <form th:action="@{/staff/updateNotifications}" method="post">
+                <label for="email-notifications">Email Notifications:</label>
+                <input type="checkbox" id="email-notifications" name="emailNotifications" th:checked="${staff.emailNotifications}">
+                <label for="sms-notifications">SMS Notifications:</label>
+                <input type="checkbox" id="sms-notifications" name="smsNotifications" th:checked="${staff.smsNotifications}">
+                <button type="submit" class="button">Save Changes</button>
+            </form>
+        </div>
+
+        <!-- Privacy Settings -->
+        <div class="card">
+            <h3>Privacy Settings</h3>
+            <form th:action="@{/staff/updatePrivacy}" method="post">
+                <label for="profile-visibility">Profile Visibility:</label>
+                <select id="profile-visibility" name="staffProfileVisibility">
+                    <option value="public" th:selected="${staff.staffProfileVisibility == 'PUBLIC'}">Public</option>
+                    <option value="private" th:selected="${staff.staffProfileVisibility == 'PRIVATE'}">Private</option>
+                    <option value="friends" th:selected="${staff.staffProfileVisibility == 'COLLEAGUE'}">Colleagues only</option>
+                </select>
+                <button type="submit" class="button">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section id="earnings" class="tabcontent">
+    <h2>Earnings</h2>
+    <div id="payments-content">
+        <!-- Payment details will be listed here -->
+    </div>
+</section>
+
+<section id="support" class="tabcontent">
+    <h2>Support</h2>
+    <div id="support-content">
+        <!-- Support information will be listed here -->
+    </div>
+</section>
+
 <script src="/js/staff/staffhome.js"></script>
 </body>
 </html>
