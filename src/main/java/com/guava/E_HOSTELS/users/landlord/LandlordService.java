@@ -3,6 +3,7 @@ package com.guava.E_HOSTELS.users.landlord;
 import com.guava.E_HOSTELS.users.director.Director;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,10 +12,12 @@ import java.util.List;
 public class LandlordService {
 
     private final LandlordRepository landlordRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public LandlordService(LandlordRepository landlordRepository) {
+    public LandlordService(LandlordRepository landlordRepository, PasswordEncoder passwordEncoder) {
         this.landlordRepository = landlordRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // Method to retrieve current logged-in landlord details
@@ -71,7 +74,8 @@ public class LandlordService {
                 landlordToUpdate.setEmail(updatedLandord.getEmail());
             }
             if (updatedLandord.getPassword() != null) {
-                landlordToUpdate.setPassword(updatedLandord.getPassword());
+                String password = passwordEncoder.encode(updatedLandord.getPassword());
+                landlordToUpdate.setPassword(password);
             }
 
             landlordRepository.save(landlordToUpdate);

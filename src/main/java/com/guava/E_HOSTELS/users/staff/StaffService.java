@@ -3,6 +3,7 @@ package com.guava.E_HOSTELS.users.staff;
 import com.guava.E_HOSTELS.users.director.Director;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +12,14 @@ import java.util.List;
 public class StaffService {
 
     @Autowired
-    private StaffRepository staffRepository;
+    private final StaffRepository staffRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public StaffService(StaffRepository staffRepository, PasswordEncoder passwordEncoder) {
+        this.staffRepository = staffRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
     public Staff findByUsername(String username) {
         return staffRepository.findByUserName(username);
     }
@@ -60,7 +68,8 @@ public class StaffService {
                 staffToUpdate.setEmail(updatedStaff.getEmail());
             }
             if (updatedStaff.getPassword() != null) {
-                staffToUpdate.setPassword(updatedStaff.getPassword());
+                String password = passwordEncoder.encode(updatedStaff.getPassword());
+                staffToUpdate.setPassword(password);
             }
 
 

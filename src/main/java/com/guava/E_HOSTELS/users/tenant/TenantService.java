@@ -2,6 +2,7 @@ package com.guava.E_HOSTELS.users.tenant;
 
 import com.guava.E_HOSTELS.users.director.Director;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,7 +10,13 @@ import java.util.List;
 @Service
 public class TenantService {
     @Autowired
-    private TenantRepository tenantRepository;
+    private final TenantRepository tenantRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public TenantService(TenantRepository tenantRepository, PasswordEncoder passwordEncoder) {
+        this.tenantRepository = tenantRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public Tenant findById(Long tenantId) {
        return tenantRepository.findByTenantId(tenantId);
@@ -52,7 +59,8 @@ public class TenantService {
                 tenantToUpdate.setEmail(updatedTenant.getEmail());
             }
             if (updatedTenant.getPassword() != null) {
-                tenantToUpdate.setPassword(updatedTenant.getPassword());
+                String password = passwordEncoder.encode(updatedTenant.getPassword());
+                tenantToUpdate.setPassword(password);
             }
 
 

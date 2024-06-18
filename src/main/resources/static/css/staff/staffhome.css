@@ -6,7 +6,7 @@ body {
 }
 
 header {
-  background-color: #FF5A5F;
+  background-color: hsl(298, 72%, 14%);
   color: white;
   padding: 10px 20px;
   display: flex;
@@ -26,7 +26,7 @@ header .profile-picture {
 }
 
 nav {
-  background-color: #f8acae;
+  background-color: hsl(298, 24%, 26%);
   padding: 10px 20px;
   display: flex;
   flex-wrap: wrap;
@@ -34,7 +34,7 @@ nav {
 }
 
 .tablink {
-  background-color: #f8acae;
+  background-color: hsl(298, 24%, 26%);
   color: white;
   border: none;
   padding: 10px 20px;
@@ -43,7 +43,7 @@ nav {
 }
 
 .tablink:hover {
-  background-color: #e14e50;
+  background-color: hsl(298, 76%, 59%);
 }
 
 .container {
@@ -79,6 +79,7 @@ nav {
 .button:hover {
   background-color: #e14e50;
 }
+
 
 
 
