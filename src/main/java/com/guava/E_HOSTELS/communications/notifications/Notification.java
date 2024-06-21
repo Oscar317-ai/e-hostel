@@ -1,4 +1,4 @@
-package com.guava.E_HOSTELS.hostel.notifications;
+package com.guava.E_HOSTELS.communications.notifications;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

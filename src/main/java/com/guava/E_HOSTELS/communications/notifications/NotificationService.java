@@ -1,4 +1,4 @@
-package com.guava.E_HOSTELS.hostel.notifications;
+package com.guava.E_HOSTELS.communications.notifications;
 
 import org.springframework.stereotype.Service;
 

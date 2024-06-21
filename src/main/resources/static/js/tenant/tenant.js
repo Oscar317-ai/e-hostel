@@ -1,11 +1,21 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
+     const faqs = document.querySelectorAll('.faq-item h4');
+     faqs.forEach(faq => {
+        faq.addEventListener('click', () => {
+             const answer = faq.nextElementSibling;
+                 if (answer.style.display === 'block') {
+                    answer.style.display = 'none';
+                 } else {
+                    answer.style.display = 'block';
+                }
+         });
+    });
     // Display the first tab content by default
     document.getElementById("home-listings").style.display = "block";
-
-
-
-    // Other data initialization code can be added here
+    // Initialize reported issues
+    loadIssues();
 });
+
 
 function openSection(evt, sectionName) {
     // Hide all tab contents
@@ -32,6 +42,128 @@ function confirmLogout() {
     }
 }
 
+// Support tab
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Your existing code
+    loadIssues();
+});
+
+function reportIssue() {
+    const description = document.getElementById('issue-description').value;
+    if (description.trim() === '') {
+        alert('Please describe your issue.');
+        return;
+    }
+
+    // Fetch tenant ID and role
+    const tenantId = document.querySelector('#support').getAttribute('data-tenant-id');
+    const role = 'TENANT';
+
+    // Prepare issue data
+    const issueData = {
+        description: description,
+        userId: tenantId,
+        role: role
+    };
+
+    fetch('/create/issue', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(issueData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('Issue reported successfully!');
+        loadIssues(); // Reload the issues to include the new one
+        document.getElementById('issue-description').value = '';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('There was an error reporting your issue.');
+    });
+}
+
+function loadIssues() {
+    const tenantId = document.querySelector('#support').getAttribute('data-tenant-id');
+    const role = 'TENANT';
+
+    fetch(`/fetch/issues/${tenantId}/${role}`)
+        .then(response => response.json())
+        .then(issues => {
+            const issueList = document.getElementById('issue-list');
+            issueList.innerHTML = '';
+            issues.forEach(issue => {
+                const li = document.createElement('li');
+
+                // Create status label
+                const statusLabel = document.createElement('span');
+                statusLabel.textContent = issue.status === 'PENDING' ? 'P' : 'S';
+                statusLabel.className = issue.status === 'PENDING' ? 'status-label pending' : 'status-label solved';
+
+                // Create description text
+                const descriptionText = document.createElement('span');
+                descriptionText.textContent = issue.description;
+
+                // Append elements to list item
+                li.appendChild(statusLabel);
+                li.appendChild(descriptionText);
+
+                // Create and append delete button
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.className = 'delete-button';
+                deleteButton.onclick = () => deleteIssue(issue.id);
+                li.appendChild(deleteButton);
+
+                // Append list item to issue list
+                issueList.appendChild(li);
+            });
+        });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadIssues();
+});
+
+function deleteIssue(id) {
+    fetch(`/remove/issue/${id}`, {
+        method: 'DELETE'
+    })
+    .then(() => loadIssues());
+}
+
+
+
+// contact us
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const contactData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('user-email').value,
+        message: document.getElementById('message').value
+    };
+
+    fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(contactData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('Your message has been sent successfully!');
+        document.getElementById('contact-form').reset();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('There was an error sending your message.');
+    });
+});
 
 
 
