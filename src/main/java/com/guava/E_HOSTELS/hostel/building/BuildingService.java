@@ -1,5 +1,6 @@
 package com.guava.E_HOSTELS.hostel.building;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,10 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class BuildingService {
 
-    @Autowired
-    private BuildingRepository buildingRepository;
+    private final BuildingRepository buildingRepository;
 
 
     public Page<Building> searchByNameOrArea(String buildingName,String area, Pageable pageable ){
@@ -25,6 +26,11 @@ public class BuildingService {
 
         return buildingRepository.findByBuildingNameContainingIgnoreCaseOrAreaContainingIgnoreCase( buildingName, area, pageable);
 
+    }
+
+
+    public Page<Building> searchBuildings(String area, Long maxDistance, Integer maxPrice, String buildingName, Pageable pageable) {
+        return buildingRepository.findByCriteria(area, maxDistance, maxPrice, buildingName, pageable);
     }
 
 

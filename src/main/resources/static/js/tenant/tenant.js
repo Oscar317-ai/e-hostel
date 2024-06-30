@@ -1,3 +1,5 @@
+
+
 document.addEventListener('DOMContentLoaded', () => {
      const faqs = document.querySelectorAll('.faq-item h4');
      faqs.forEach(faq => {
@@ -14,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById("home-listings").style.display = "block";
     // Initialize reported issues
     loadIssues();
+    connect();
 });
 
 
@@ -37,10 +40,194 @@ function openSection(evt, sectionName) {
 
 function confirmLogout() {
     if (confirm("Are you sure you want to logout?")) {
+        stompClient.send("/app/user.disconnectUser",
+                {},
+                JSON.stringify({userId: tenantId, userName: firstname, status: 'ONLINE'})
+            );
         // Redirect to logout URL
         window.location.href = "/logout";
     }
 }
+
+
+
+// Notifications tab
+'use strict';
+
+const usernamePage = document.querySelector('#username-page');
+const chatPage = document.querySelector('#chat-page');
+const usernameForm = document.querySelector('#usernameForm');
+const messageForm = document.querySelector('#messageForm');
+const messageInput = document.querySelector('#message');
+const connectingElement = document.querySelector('.connecting');
+const chatArea = document.querySelector('#chat-messages');
+const toggleUsersListButton = document.querySelector('#toggleUsersList');
+const usersList = document.querySelector('.users-list');
+
+let stompClient = null;
+let tenantId = document.querySelector('#support').getAttribute('data-tenant-id');
+const nickname = document.querySelector('#support').getAttribute('data-tenant-id');
+const fullname = document.querySelector('#chat-page').getAttribute('data-tenant-firstname');
+let selectedUserId = null;
+
+function connect() {
+
+    if (nickname && fullname) {
+        const socket = new SockJS('/ws');
+        stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, onConnected, onError);
+    }
+}
+
+function onConnected() {
+    stompClient.subscribe(`/user/${nickname}/queue/messages`, onMessageReceived);
+    stompClient.subscribe(`/user/public`, onMessageReceived);
+
+    // register the connected user
+    stompClient.send("/app/user.addUser",
+        {},
+        JSON.stringify({nickName: nickname, fullName: fullname, status: 'ONLINE'})
+    );
+    document.querySelector('#connected-user-fullname').textContent = fullname;
+    findAndDisplayConnectedUsers().then();
+}
+
+async function findAndDisplayConnectedUsers() {
+    const connectedUsersResponse = await fetch('/users');
+    let connectedUsers = await connectedUsersResponse.json();
+    connectedUsers = connectedUsers.filter(user => user.nickName !== nickname);
+    const connectedUsersList = document.getElementById('connectedUsers');
+    connectedUsersList.innerHTML = '';
+
+    connectedUsers.forEach(user => {
+        appendUserElement(user, connectedUsersList);
+        if (connectedUsers.indexOf(user) < connectedUsers.length - 1) {
+            const separator = document.createElement('li');
+            separator.classList.add('separator');
+            connectedUsersList.appendChild(separator);
+        }
+    });
+}
+
+function appendUserElement(user, connectedUsersList) {
+    const listItem = document.createElement('li');
+    listItem.classList.add('user-item');
+    listItem.id = user.nickName;
+
+    const userImage = document.createElement('img');
+    userImage.src = '/img/user.jpg  ';
+    userImage.alt = user.fullName;
+
+    const usernameSpan = document.createElement('span');
+    usernameSpan.textContent = user.fullName;
+
+    const receivedMsgs = document.createElement('span');
+    receivedMsgs.textContent = '0';
+    receivedMsgs.classList.add('nbr-msg', 'hidden');
+
+    listItem.appendChild(userImage);
+    listItem.appendChild(usernameSpan);
+    listItem.appendChild(receivedMsgs);
+
+    listItem.addEventListener('click', userItemClick);
+
+    connectedUsersList.appendChild(listItem);
+}
+
+function userItemClick(event) {
+    document.querySelectorAll('.user-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    messageForm.classList.remove('hidden');
+
+    const clickedUser = event.currentTarget;
+    clickedUser.classList.add('active');
+
+    selectedUserId = clickedUser.getAttribute('id');
+    fetchAndDisplayUserChat().then();
+
+    const nbrMsg = clickedUser.querySelector('.nbr-msg');
+    nbrMsg.classList.add('hidden');
+    nbrMsg.textContent = '0';
+
+}
+
+function displayMessage(senderId, content) {
+    const messageContainer = document.createElement('div');
+    messageContainer.classList.add('message');
+    if (senderId === nickname) {
+        messageContainer.classList.add('sender');
+    } else {
+        messageContainer.classList.add('receiver');
+    }
+    const message = document.createElement('p');
+    message.textContent = content;
+    messageContainer.appendChild(message);
+    chatArea.appendChild(messageContainer);
+}
+
+async function fetchAndDisplayUserChat() {
+    const userChatResponse = await fetch(`/messages/${nickname}/${selectedUserId}`);
+    const userChat = await userChatResponse.json();
+    chatArea.innerHTML = '';
+    userChat.forEach(chat => {
+        displayMessage(chat.senderId, chat.content);
+    });
+    chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+function onError() {
+    connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
+    connectingElement.style.color = 'red';
+}
+
+function sendMessage(event) {
+    const messageContent = messageInput.value.trim();
+    if (messageContent && stompClient) {
+        const chatMessage = {
+            senderId: nickname,
+            recipientId: selectedUserId,
+            content: messageInput.value.trim(),
+            timestamp: new Date()
+        };
+        stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
+        displayMessage(nickname, messageInput.value.trim());
+        messageInput.value = '';
+    }
+    chatArea.scrollTop = chatArea.scrollHeight;
+    event.preventDefault();
+}
+
+async function onMessageReceived(payload) {
+    await findAndDisplayConnectedUsers();
+    console.log('Message received', payload);
+    const message = JSON.parse(payload.body);
+    if (selectedUserId && selectedUserId === message.senderId) {
+        displayMessage(message.senderId, message.content);
+        chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    if (selectedUserId) {
+        document.querySelector(`#${selectedUserId}`).classList.add('active');
+    } else {
+        messageForm.classList.add('hidden');
+    }
+
+    const notifiedUser = document.querySelector(`#${message.senderId}`);
+    if (notifiedUser && !notifiedUser.classList.contains('active')) {
+        const nbrMsg = notifiedUser.querySelector('.nbr-msg');
+        nbrMsg.classList.remove('hidden');
+        nbrMsg.textContent = '1';
+    }
+}
+
+messageForm.addEventListener('submit', sendMessage, true);
+toggleUsersListButton.addEventListener('click', toggleUsersList, true);
+window.onbeforeunload = () => onLogout();
+
+
+
 
 // Support tab
 
@@ -87,7 +274,7 @@ function reportIssue() {
 }
 
 function loadIssues() {
-    const tenantId = document.querySelector('#support').getAttribute('data-tenant-id');
+
     const role = 'TENANT';
 
     fetch(`/fetch/issues/${tenantId}/${role}`)

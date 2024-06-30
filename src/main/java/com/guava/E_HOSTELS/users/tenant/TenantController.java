@@ -7,6 +7,7 @@ import com.guava.E_HOSTELS.hostel.building.BuildingService;
 import com.guava.E_HOSTELS.hostel.house.House;
 import com.guava.E_HOSTELS.hostel.house.HouseService;
 import com.guava.E_HOSTELS.hostel.house.HouseStatus;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,25 +30,24 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
-
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/tenant")
 public class TenantController {
 
-    public static String uploadDirectory = System.getProperty("user.dir")+ "/src/main/webapp/images";
+    public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/images";
 
-    @Autowired
-    private TenantService tenantService;
-    @Autowired
-    private HouseService houseService;
-    @Autowired
-    private BuildingService buildingService;
-    @Autowired
-    private BuildingRepository buildingRepository;
+    private final TenantService tenantService;
+    private final HouseService houseService;
+    private final BuildingService buildingService;
+    private final BuildingRepository buildingRepository;
 
     @GetMapping("/{tenantId}/home")
     public String getMyHomes(@PathVariable Long tenantId, Model model,
-                             @RequestParam(required = false) String keyword,
+                             @RequestParam(required = false) String area,
+                             @RequestParam(required = false) Long maxDistance,
+                             @RequestParam(required = false) Integer maxPrice,
+                             @RequestParam(required = false) String buildingName,
                              @RequestParam(defaultValue = "0") Integer page,
                              @RequestParam(defaultValue = "buildingName") String sortField,
                              @RequestParam(defaultValue = "asc") String sortOrder) {
@@ -60,9 +60,13 @@ public class TenantController {
         sort = sortOrder.equals("asc") ? sort.ascending() : sort.descending();
         Pageable pageable = PageRequest.of(page, pageSize, sort);
 
-        Page<Building> buildings = (keyword != null && !keyword.isEmpty())
-                ? buildingService.searchByNameOrArea(keyword, keyword, pageable)
-                : buildingRepository.findAllWithLandlord(pageable);
+        Page<Building> buildings;
+
+        if (area == null && maxDistance == null && maxPrice == null && buildingName == null) {
+            buildings = buildingRepository.findAllWithLandlord(pageable);
+        } else {
+            buildings = buildingService.searchBuildings(area, maxDistance, maxPrice, buildingName, pageable);
+        }
 
         model.addAttribute("buildings", buildings.getContent());
         model.addAttribute("currentPage", page);
@@ -72,6 +76,9 @@ public class TenantController {
         model.addAttribute("tenantId", tenantId);
         return "tenant/tenanthome";
     }
+
+
+
 
     @GetMapping("/{tenantId}/availablehomes")
     public String getAvailableHomes(@PathVariable Long tenantId, Model model) {

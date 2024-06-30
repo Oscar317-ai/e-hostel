@@ -21,14 +21,18 @@
 </nav>
 
 <section id="home-listings" class="tabcontent">
-    <h2>Available Homes</h2>
+    <h2 class="available-homes-head">Available Homes</h2>
 
     <div class="searchbar">
         <form th:action="@{/tenant/{tenantId}/home(tenantId=${tenantId})}" method="get">
-            <input type="text" name="keyword" placeholder="Search for any building">
-            <button type="submit">Search</button>
+            <input type="text" name="area" placeholder="Area" class="search-input">
+            <input type="text" name="maxDistance" placeholder="Max Distance" class="search-input">
+            <input type="text" name="maxPrice" placeholder="Max Price" class="search-input">
+            <input type="text" name="buildingName" placeholder="Building Name" class="search-input">
+            <button type="submit" class="search-button">Search</button>
         </form>
     </div>
+
 
     <div class="pagination-controls">
         <a th:if="${currentPage > 0}" th:href="@{/tenant/{tenantId}/home(tenantId=${tenantId}, page=${currentPage - 1}, sortField=${sortField}, sortOrder=${sortOrder}, keyword=${keyword})}">Previous</a>
@@ -77,16 +81,40 @@
 </section>
 
 <section id="notifications" class="tabcontent">
-    <h2>Notifications</h2>
-    <div id="notifications-content">
-        <!-- Notifications will be listed here -->
-        <div class="notifications-list">
-            <div th:each="notification : ${notifications}" class="notification-item">
-                <p th:text="${notification.message}"></p>
-                <p th:text="${notification.date}"></p>
+<h2>Notifications</h2>
+<div class="button-container">
+    <button class="button round-button users-list-toggle" id="toggleUsersList">Side Bar</button>
+    <button class="button round-button" id="settingsBtn">Settings</button>
+    <button class="button round-button" id="notificationsBtn">Notifications</button>
+</div>
+
+    <div class="chat-container " id="chat-page" th:data-tenant-firstname="${tenant.firstName}">
+
+        <div class="users-list">
+            <div class="users-list-container">
+                <h2>Online Users</h2>
+                <ul id="connectedUsers">
+                </ul>
+            </div>
+            <div>
+                <p id="connected-user-fullname"></p>
+                <a class="logout" href="javascript:void(0)" id="logout">Logout</a>
             </div>
         </div>
+
+        <div class="chat-area">
+            <div id="chat-messages">
+            </div>
+
+            <form id="messageForm" name="messageForm" class="hidden">
+                <div class="message-input">
+                    <input autocomplete="off" type="text" id="message" placeholder="Type your message...">
+                    <button>Send</button>
+                </div>
+            </form>
+        </div>
     </div>
+
 </section>
 
 <section id="settings" class="tabcontent">
@@ -189,7 +217,8 @@
                     <input type="email" id="user-email" name="email" placeholder="Your email">
 
                     <label for="message">Message:</label>
-                    <textarea id="message" name="message" placeholder="Your message.. You will receive feedback in the notifications tab"></textarea>
+<!--                    id message was changed to contact-message -->
+                    <textarea id="contact-message" name="message" placeholder="Your message.. You will receive feedback in the notifications tab"></textarea>
 
                     <button class="btn" type="submit">Send Message</button>
                 </form>
@@ -211,6 +240,8 @@
     </div>
 </section>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="/js/tenant/tenant.js"></script>
 </body>
 </html>

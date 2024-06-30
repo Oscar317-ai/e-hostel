@@ -5,6 +5,7 @@ import com.guava.E_HOSTELS.hostel.building.BuildingService;
 import com.guava.E_HOSTELS.hostel.house.House;
 import com.guava.E_HOSTELS.hostel.house.HouseService;
 import com.guava.E_HOSTELS.users.director.Director;
+import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,17 +24,15 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/landlord")
 public class LandlordController {
 
     public static String uploadDirectory = System.getProperty("user.dir")+ "/src/main/webapp/images";
 
-    @Autowired
-    private LandlordService landlordService;
-    @Autowired
-    private BuildingService buildingService;
-    @Autowired
-    private HouseService houseService;
+    private final LandlordService landlordService;
+    private final BuildingService buildingService;
+    private final HouseService houseService;
 
 
 

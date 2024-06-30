@@ -10,6 +10,7 @@ import com.guava.E_HOSTELS.users.staff.Staff;
 import com.guava.E_HOSTELS.users.staff.StaffService;
 import com.guava.E_HOSTELS.users.tenant.Tenant;
 import com.guava.E_HOSTELS.users.tenant.TenantService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ import java.util.UUID;
 
 // DirectorController.java
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/director")
 public class DirectorController {
 
@@ -38,14 +40,6 @@ public class DirectorController {
     private final BuildingService buildingService;
     private final HouseService houseService;
 
-    public DirectorController(DirectorService directorService, StaffService staffService, TenantService tenantService, LandlordService landlordService, BuildingService buildingService, HouseService houseService) {
-        this.directorService = directorService;
-        this.staffService = staffService;
-        this.tenantService = tenantService;
-        this.landlordService = landlordService;
-        this.buildingService = buildingService;
-        this.houseService = houseService;
-    }
 
     @GetMapping("/{id}/home")
     public String directorHome(@PathVariable Long id, Model model) {

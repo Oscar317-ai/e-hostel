@@ -3,6 +3,7 @@ package com.guava.E_HOSTELS.hostel.building;
 
 import com.guava.E_HOSTELS.hostel.house.House;
 import com.guava.E_HOSTELS.hostel.house.HouseService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/building")
 public class BuildingController {
 
@@ -25,10 +27,6 @@ public class BuildingController {
     private final HouseService houseService;
     private final BuildingService buildingService;
 
-    public BuildingController(HouseService houseService, BuildingService buildingService) {
-        this.houseService = houseService;
-        this.buildingService = buildingService;
-    }
 
     // landlords view of the building
     @GetMapping("/landlords-building-view/{buildingId}")
