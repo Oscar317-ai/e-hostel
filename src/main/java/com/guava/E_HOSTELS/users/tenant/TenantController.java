@@ -62,7 +62,7 @@ public class TenantController {
 
         Page<Building> buildings;
 
-        if (area == null && maxDistance == null && maxPrice == null && buildingName == null) {
+        if (area == null || area.isEmpty() && maxDistance == null && maxPrice == null && buildingName == null) {
             buildings = buildingRepository.findAllWithLandlord(pageable);
         } else {
             buildings = buildingService.searchBuildings(area, maxDistance, maxPrice, buildingName, pageable);

@@ -73,7 +73,7 @@ let selectedUserId = null;
 function connect() {
 
     if (nickname && fullname) {
-        const socket = new SockJS('/ws');
+        const socket = new SockJS('https://94a5-102-210-221-6.ngrok-free.app/ws');
         stompClient = Stomp.over(socket);
 
         stompClient.connect({}, onConnected, onError);
@@ -220,6 +220,11 @@ async function onMessageReceived(payload) {
         nbrMsg.classList.remove('hidden');
         nbrMsg.textContent = '1';
     }
+}
+
+function toggleUsersList() {
+    usersList.classList.toggle('slide-out');
+    chat-area.classList.toggle('users-list-hidden');
 }
 
 messageForm.addEventListener('submit', sendMessage, true);
